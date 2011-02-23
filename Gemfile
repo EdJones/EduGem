@@ -31,4 +31,5 @@ gem "nifty-generators", :group => :development
 #   gem 'webrat'
 # end
 gem "bcrypt-ruby", :require => "bcrypt"
-gem "mocha", :group => :test
+#I guess nifty:authentication added this? server complains
+#gem "mocha", :group => :test

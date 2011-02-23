@@ -12,7 +12,7 @@ development:
   database: whendidji3a_development
   pool: 5
   username: root
-  password:
+  password: emmitt
   host: localhost
 
 # Warning: The database defined as "test" will be erased and

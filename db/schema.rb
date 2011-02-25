@@ -14,5 +14,14 @@ ActiveRecord::Schema.define(:version => 20110223144432) do
 
 # Could not dump table "accounts" because of following Mysql2::Error
 #   Invalid date: BTREE
-
+  create_table "game_stats", :force => true do |t|
+    t.string   "login"
+    t.integer  "game_id"
+    t.integer  "high_score"
+    t.datetime "start_time"
+    t.integer  "last_level"
+    t.integer  "game_duration"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 end

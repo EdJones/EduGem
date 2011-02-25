@@ -7,6 +7,7 @@ Whendidji3a::Application.routes.draw do
 
   match 'login' => 'user_sessions#new', :as => :login
 
+match 'play' => 'play#start'
   resources :user_sessions
 
   resources :accounts
@@ -37,6 +38,21 @@ Whendidji3a::Application.routes.draw do
   #     end
   #   end
 
+   resources :play do
+   #  member do
+   #  get 'short'
+    #   post 'toggle'
+   #  end
+
+   collection do
+      get 'start'
+    end
+  end
+
+     resources :practice 
+     resources :my_digis
+     resources :myAccount
+     resources :event_suggestions
   # Sample resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
@@ -60,7 +76,7 @@ Whendidji3a::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => "public/index.html"
+   root :to => "play#start"
 
   # See how all your routes lay out with "rake routes"
 

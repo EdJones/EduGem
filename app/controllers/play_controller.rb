@@ -6,90 +6,7 @@ def index
   redirect_to :controller => 'play', :action => 'start'
 end
 
-def preview
-    @my_digis = MyDigi.find(:all, :conditions => { :public_play => true })
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @my_digis }
-    end
-end
-
-def show
-    @my_digis = MyDigi.find(:all, :conditions => { :public_play => true })
-    @events = CustomEvent.find(:all, 
-          :order => "idee")
-    @my_digi = MyDigi.find(params[:id])
-    @eventsSourceList = @my_digi.custom_events
-    @eventsStartIdee = @my_digi.custom_events.first.idee
-        @eventsEndIdee = @my_digi.custom_events.last.idee
-        @eventsTimeBase = @events[0..5]
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @my_digis }
-    end
-end
-  def start
-   #who is coming to visit?
-   #logger.debug "request.remote_ip: #{request.remote_ip}"
-   #@location = locateIp()
-   logger.debug "*****@location: #{@location}"
-   #visitor = Traffic.create(:ip => request.remote_ip)
-   @game_id = 0
-   @time = Time.now
-   @high_scores = GameStat.find(:all, :order => "high_score DESC", :limit => "5") - GameStat.find(:all, :conditions => {:login => 'ej0c'})
-   #get_events(6, 19)
-      @events = Event.find(:all, 
-          :order => "idee") 
-    @didjis = MyDigi.find(:all, :conditions => { :public_play => true }) - MyDigi.find(:all, :conditions => {:id => '13'})
-          
-      if logged_in?     
-    # Short for:
-    #    unless GameStat.find_by_login(current_user.login)
-    #  ... @current_game = GameStat.create({:login => current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0})
-  @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
-   
-   # For when we have multiple versions:
-  session[:current_game] = @current_game
-
-  @current_game.update_start_time() 
-
- # need to separate current game stats from current player's cum stats  OR Current_player line needs to be eeked out of views
-  @current_player = GameStat.find_by_login(current_account.username)
-  else
-    #@traffic = Traffic.create
-
- end
- # to process event suggestions
- @event_suggestion = EventSuggestion.new
- end
-
-# try this with custom games and digis
-  def start2
-   @game_id = 0
-   @time = Time.now
-   #get_events(6, 19)
-      @events = Event.find(:all, 
-          :order => "idee") 
-          
-          
-      if logged_in?     
-    # Short for:
-    #    unless GameStat.find_by_login(current_user.login)
-    #  ... @current_game = GameStat.create({:login => current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0})
-  @current_game = GameStat.find_or_create_by_login(:login =>current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
-   
-   # For when we have multiple versions:
-  session[:current_game] = @current_game
-
-  @current_game.update_start_time() 
-
- # need to separate current game stats from current player's cum stats  OR Current_player line needs to be eeked out of views
-  @current_player = GameStat.find_by_login(current_user.login)
- end
- # to process event suggestions
- @event_suggestion = EventSuggestion.new
- end
  
  def gameUpdate2
      
@@ -101,21 +18,13 @@ end
     respond_to do |format|
       #format.html # index.html.erb
       format.js  {
-      render :update do |page|
-        page.replace_html 'highScore', :text => session[:current_game].high_score
-        page.replace_html "message", :text => ""
-        page.replace_html "displayGameTime", :inline => "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
-        page.replace_html 'game', :partial => "level"+ @level.to_s
-        end }
-
-      #do    |page| 
-       # page.replace_html "highScore", :text => session[:current_game].high_score
-       # page.replace_html "message", :text => ""
-       # page.replace_html "displayGameTime", :inline => "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
-       # page.replace_html "game", :partial => "level"+ @level.to_s 
-    #end
-
- 
+        render :update do |page|
+            page.replace_html 'highScore', :text => session[:current_game].high_score
+            page.replace_html "message", :text => ""
+            page.replace_html "displayGameTime", :inline => "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
+            page.replace_html 'game', :partial => "level"+ @level.to_s
+        end 
+        }
    end
     
     else 
@@ -196,29 +105,35 @@ end
   end
   
   # experimental: trying to not send entire list to browser
-  def gameUpdate3p    
-    @level = "3p"
-    @eventsStartIdee = 48
-    @eventsEndIdee = 61
+  def gameUpdate3p
+    @gameLevel = GameLevel.find(:last)      
+    #@level = "3p"
+    @level = @gameLevel.level.to_s + "p"
+    @eventsStartIdee = @gameLevel.start_idee
+    @eventsEndIdee = @gameLevel.end_idee
 
     @eventsTimeBase = get_events(0,5)
-    @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)     
-    session[:current_score] = params[:score].to_i
-    session[:current_game].update_high_score(params[:score].to_i)
-    render :update do |page|
-    page.replace_html "highScore", :text => session[:current_game].high_score
-    page.replace_html "displayCorrect", :text => "0/0";
-    page.replace_html "message", :text => ""
-    page.replace_html "displayGameTime", :inline => "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
-    page.replace_html "game", :partial => "level"+ @level.to_s
-    end
+    @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+    refresh_game(@level)    
+    #session[:current_score] = params[:score].to_i
+    #session[:current_game].update_high_score(params[:score].to_i)
+    #render :update do |page|
+    #page.replace_html "highScore", :text => session[:current_game].high_score
+    #page.replace_html "displayCorrect", :text => "0/0";
+    #page.replace_html "message", :text => ""
+    #page.replace_html "displayGameTime", :inline => "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
+    #page.replace_html "game", :partial => "level"+ @level.to_s
+    #end
   end    
   
-  def gameUpdate3b    
-    @level = "3b"
+  #For this one, try with the GameLevels model determining vars
+  def gameUpdate3b 
+    @gameLevel = GameLevel.find(:first)
+      
+    @level = @gameLevel.level.to_s + "b"
     @nextLevel = "3v"
-    @eventsStartIdee = 34
-    @eventsEndIdee = 47
+    @eventsStartIdee = @gameLevel.start_idee
+    @eventsEndIdee = @gameLevel.end_idee
     @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
      refresh_game(@level)
   end
@@ -241,6 +156,7 @@ end
     @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
      refresh_game(@level)
   end
+
 # Render the Bonus attempt view
     def gameUpdate3bonus    
     session[:current_score] = params[:score].to_i
@@ -329,9 +245,127 @@ end
     
   end
   
+# ---------------------------------------------------------------------------------------------
+# May not be using any of this.
+# May use for refactoring
+def preview
+    @my_digis = MyDigi.find(:all, :conditions => { :public_play => true })
 
-  
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @my_digis }
+    end
+end
+
+def show
+    @my_digis = MyDigi.find(:all, :conditions => { :public_play => true })
+    @events = CustomEvent.find(:all, 
+          :order => "idee")
+    @my_digi = MyDigi.find(params[:id])
+    @eventsSourceList = @my_digi.custom_events
+    @eventsStartIdee = @my_digi.custom_events.first.idee
+        @eventsEndIdee = @my_digi.custom_events.last.idee
+        @eventsTimeBase = @events[0..5]
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @my_digis }
+    end
+end
+  def start
+   #who is coming to visit?
+   #logger.debug "request.remote_ip: #{request.remote_ip}"
+   #@location = locateIp()
+   logger.debug "*****@location: #{@location}"
+   #visitor = Traffic.create(:ip => request.remote_ip)
+   @game_id = 0
+   @time = Time.now
+   @high_scores = GameStat.find(:all, :order => "high_score DESC", :limit => "5") - GameStat.find(:all, :conditions => {:login => 'ej0c'})
+   #get_events(6, 19)
+      @events = Event.find(:all, 
+          :order => "idee") 
+    @didjis = MyDigi.find(:all, :conditions => { :public_play => true }) - MyDigi.find(:all, :conditions => {:id => '13'})
+          
+      if logged_in?     
+    # Short for:
+    #    unless GameStat.find_by_login(current_user.login)
+    #  ... @current_game = GameStat.create({:login => current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0})
+  @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
+   
+   # For when we have multiple versions:
+  session[:current_game] = @current_game
+
+  @current_game.update_start_time() 
+
+ # need to separate current game stats from current player's cum stats  OR Current_player line needs to be eeked out of views
+  @current_player = GameStat.find_by_login(current_account.username)
+  else
+    #@traffic = Traffic.create
+
+ end
+ # to process event suggestions
+ @event_suggestion = EventSuggestion.new
+ end
+
+# try this with custom games and digis
+  def start2
+   @game_id = 0
+   @time = Time.now
+   #get_events(6, 19)
+      @events = Event.find(:all, 
+          :order => "idee") 
+          
+          
+      if logged_in?     
+    # Short for:
+    #    unless GameStat.find_by_login(current_user.login)
+    #  ... @current_game = GameStat.create({:login => current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0})
+  @current_game = GameStat.find_or_create_by_login(:login =>current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
+   
+   # For when we have multiple versions:
+  session[:current_game] = @current_game
+
+  @current_game.update_start_time() 
+
+ # need to separate current game stats from current player's cum stats  OR Current_player line needs to be eeked out of views
+  @current_player = GameStat.find_by_login(current_user.login)
+ end
+ # to process event suggestions
+ @event_suggestion = EventSuggestion.new
+ end
+#----------------------------------------------------------------------------------
+# private metods
+#----------------------------------------------------------------------------------
   private
+  
+  # Update game view for normal levels
+ def refresh_game(level)
+    # @events = Event.find(:all, 
+      #    :order => "idee")
+   if logged_in?
+    session[:current_score] = params[:score].to_i
+    session[:current_game].update_high_score(params[:score].to_i)
+    session[:current_game].update_last_level(@level.chop.to_i)
+    session[:current_game].update_game_duration
+    @highScore = session[:current_game].high_score
+    @displayGameTime = "<%= raw 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
+   else
+     @highScore = " "
+     @displayGameTime = " "
+   end  
+   render :update do |page|
+        if logged_in?
+       page.replace_html "highScore", :text => @highScore.to_s
+       page.replace_html "displayGameTime", :inline => @displayGameTime
+     end
+     logger.info("reached the render")
+       page.replace_html "displayCorrect", :text => "0/0";
+       logger.info("reached the displayCorrect")
+       page.replace_html "message", :text => ""
+       page.replace_html "game", :partial => "level"+ level.to_s
+     end
+
+end
+  
   
   # Update scoring for bonus results
   def refresh_scoring(new_points, correct, partial)
@@ -376,39 +410,10 @@ def get__custom_events(game, didji)
        #     :conditions => "game_id = @game_id",
          #   :order => "idee")
           end 
-end       
-# Update game view for normal levels
- def refresh_game(level)
-    # @events = Event.find(:all, 
-      #    :order => "idee")
-   if logged_in?
-    session[:current_score] = params[:score].to_i
-    session[:current_game].update_high_score(params[:score].to_i)
-    session[:current_game].update_last_level(@level.chop.to_i)
-    session[:current_game].update_game_duration
-    @highScore = session[:current_game].high_score
-    @displayGameTime = "<%= raw 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
-   else
-     @highScore = " "
-     @displayGameTime = " "
-   end  
-   render :update do |page|
-        if logged_in?
-       page.replace_html "highScore", :text => @highScore.to_s
-       page.replace_html "displayGameTime", :inline => @displayGameTime
-     end
-     logger.info("reached the render")
-             if logged_in?
-       page.replace_html "highScore", :text => @highScore.to_s
-       page.replace_html "displayGameTime", :inline => @displayGameTime
-       end
-       page.replace_html "displayCorrect", :text => "0/0";
-       logger.info("reached the displayCorrect")
-       page.replace_html "message", :text => ""
-       page.replace_html "game", :partial => "level"+ level.to_s
-     end
+      end
 
-end
+
+# ------ Site traffic
   	def locateIp
 		#ip = "123.123.123.123";
        #logger.debug "***** locateIp: request.remote_ip: #{request.remote_ip}"

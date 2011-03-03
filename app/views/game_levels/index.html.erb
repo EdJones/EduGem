@@ -1,0 +1,37 @@
+<h1>Listing game_levels</h1>
+
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Level</th>
+    <th>Sublevel</th>
+    <th>Start idee</th>
+    <th>End idee</th>
+    <th>Tagline</th>
+    <th>Custom digi</th>
+    <th>My digi</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @game_levels.each do |game_level| %>
+  <tr>
+    <td><%= game_level.game_id %></td>
+    <td><%= game_level.level %></td>
+    <td><%= game_level.sublevel %></td>
+    <td><%= game_level.start_idee %></td>
+    <td><%= game_level.end_idee %></td>
+    <td><%= game_level.tagline %></td>
+    <td><%= game_level.custom_digi %></td>
+    <td><%= game_level.my_digi_id %></td>
+    <td><%= link_to 'Show', game_level %></td>
+    <td><%= link_to 'Edit', edit_game_level_path(game_level) %></td>
+    <td><%= link_to 'Destroy', game_level, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Game level', new_game_level_path %>

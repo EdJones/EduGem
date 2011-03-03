@@ -1,0 +1,49 @@
+<%= form_for(@game_level) do |f| %>
+  <% if @game_level.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game_level.errors.count, "error") %> prohibited this game_level from being saved:</h2>
+
+      <ul>
+      <% @game_level.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :game_id %><br />
+    <%= f.text_field :game_id %>
+  </div>
+  <div class="field">
+    <%= f.label :level %><br />
+    <%= f.text_field :level %>
+  </div>
+  <div class="field">
+    <%= f.label :sublevel %><br />
+    <%= f.text_field :sublevel %>
+  </div>
+  <div class="field">
+    <%= f.label :start_idee %><br />
+    <%= f.text_field :start_idee %>
+  </div>
+  <div class="field">
+    <%= f.label :end_idee %><br />
+    <%= f.text_field :end_idee %>
+  </div>
+  <div class="field">
+    <%= f.label :tagline %><br />
+    <%= f.text_field :tagline %>
+  </div>
+  <div class="field">
+    <%= f.label :custom_digi %><br />
+    <%= f.text_field :custom_digi %>
+  </div>
+  <div class="field">
+    <%= f.label :my_digi_id %><br />
+    <%= f.text_field :my_digi_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

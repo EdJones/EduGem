@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Game:</b>
+  <%= @game_level.game_id %>
+</p>
+
+<p>
+  <b>Level:</b>
+  <%= @game_level.level %>
+</p>
+
+<p>
+  <b>Sublevel:</b>
+  <%= @game_level.sublevel %>
+</p>
+
+<p>
+  <b>Start idee:</b>
+  <%= @game_level.start_idee %>
+</p>
+
+<p>
+  <b>End idee:</b>
+  <%= @game_level.end_idee %>
+</p>
+
+<p>
+  <b>Tagline:</b>
+  <%= @game_level.tagline %>
+</p>
+
+<p>
+  <b>Custom digi:</b>
+  <%= @game_level.custom_digi %>
+</p>
+
+<p>
+  <b>My digi:</b>
+  <%= @game_level.my_digi_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_game_level_path(@game_level) %> |
+<%= link_to 'Back', game_levels_path %>

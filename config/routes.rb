@@ -1,4 +1,6 @@
 Whendidji3a::Application.routes.draw do
+  resources :game_levels
+
   match 'account/edit' => 'accounts#edit', :as => :edit_current_account
 
   match 'signup' => 'accounts#new', :as => :signup
@@ -58,6 +60,7 @@ match 'play' => 'play#start'
       get 'gameUpdate3bonus'
       get 'bonus2_result'
       post 'bonus2_result'
+      get 'gameUpdate4a'
       
       
     end

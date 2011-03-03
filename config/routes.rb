@@ -46,6 +46,20 @@ match 'play' => 'play#start'
 
    collection do
       get 'start'
+      get 'gameUpdate'
+      get 'gameUpdate2'
+      get 'gameUpdate2a'
+      get 'gameUpdate2b'
+      get 'gameUpdate2bonus'
+      get 'gameUpdate3p'
+      get 'gameUpdate3b'
+      get 'gameUpdate3z'
+      get 'gameUpdate3v'
+      get 'gameUpdate3bonus'
+      get 'bonus2_result'
+      post 'bonus2_result'
+      
+      
     end
   end
 
@@ -53,6 +67,7 @@ match 'play' => 'play#start'
      resources :my_digis
      resources :myAccount
      resources :event_suggestions
+     resources :admin
   # Sample resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales

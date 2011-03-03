@@ -1,0 +1,31 @@
+<div id="playArea">
+<div id="popup">&nbsp;</div>
+    <%= render(:partial => "search_box") %>
+
+ <h4>Level <%= @level %></h4><br />
+ <div id="bonus" class="bonus">
+<div class="roundedcornr_box_428578">
+   <div class="roundedcornr_top_428578"><div class="rndcrnertopcontent" >Level 2</div></div>
+      <div class="roundedcornr_content_428578">
+      <div class="level_dialogue">
+ 	<p>Well done. Choose your punishment:</p>
+  <p><%= link_to "2a Big ones from Europe/Mideast", { :action => "gameUpdate2a" }, :remote => true %> </p>
+  <p><%= link_to "2b Across the Eras", { :action => "gameUpdate2b" }, :remote => true %> </p>
+  </div>
+
+      </div>
+
+   <div class="roundedcornr_bottom_428578"><div></div></div>
+</div>
+
+<p> </p>
+<p> </p>
+</div>
+ </div>
+ 
+
+ <!--end  rightmain-->
+</div>
+  <!--end  playArea-->
+<!--end verticalstretch-->
+

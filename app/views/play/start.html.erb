@@ -51,9 +51,9 @@ accumPoints = 0;
       <div id="login_message">
       <% end %>
     <% if logged_in? -%>
-    <%= "Welcome back!<br />Logged in as <strong>#{current_account.username}</strong>" %> <span class="logout"><%= link_to "Logout", :controller => 'sessions', :action => 'destroy' %>
-    &nbsp; &nbsp; &nbsp; <% if current_user.login == 'ej0c' %>  <%= link_to "Admin", :controller => 'admin', :action => 'index' %> <% end %></span><br />
-<%= "High score:  <span id='highScore'>#{@current_game.high_score}</span>" %>  &nbsp; <%= link_to "My&nbsp;Account", :controller => 'myAccount', :action => 'index' %>  
+    <%= raw "Welcome back!<br />Logged in as <strong>#{current_account.username}</strong>" %> <span class="logout"><%= link_to "Logout", :logout %>
+    &nbsp; &nbsp; &nbsp; <% if current_account.username == 'ej0c' %>  <%= link_to "Admin", :controller => 'admin', :action => 'index' %> <% end %></span><br />
+<%= raw "High score:  <span id='highScore'>#{@current_game.high_score}</span>" %>  &nbsp; <%= link_to "My Account", :controller => 'myAccount', :action => 'index' %>  
        
        <% else -%>
     <%= link_to "Login", :controller => 'user_sessions', :action => 'new' %>  <%= link_to "Signup", :controller => 'accounts', :action => 'new' %>
@@ -84,7 +84,7 @@ Click on the "W" if you need help.</h4>
 <div id="message2">&nbsp;</div>
 <ul class="sortabledemo" id="firstlist" style="height:150px;width:260px;">
 <span class="style3">Drag Events from Here</span><br />
-<div id="levelUp" ><br />You got them All!! <%= link_to "Go to Level 2", :remote => true, :url => { :action => "gameUpdate2" }, :with => "'score='+accumPoints" %> 
+<div id="levelUp" ><br />You got them All!! <%= link_to "Go to Level 2",  { :action => "gameUpdate2" }, :remote => true, %> 
 </div>
 <!-- @events.length -->
 <% for event in @events[6..19] %>
@@ -155,7 +155,7 @@ What?! You haven't <%= link_to "Invited Friends", :controller => 'myAccount', :a
 </div>
 <div id="suggestion1" valign="top">
 What event do u think should b here?
-<% form_for(@event_suggestion) do |f| %>
+<%= form_for(@event_suggestion) do |f| %>
   <%= f.error_messages %>
 
 

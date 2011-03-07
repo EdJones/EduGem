@@ -2,7 +2,6 @@
 //Create Javascript array from Rails master event list.
 var eventListBase = eval((<%= raw @eventsTimeBase.to_json %>));
 eventsStartIdee = <%= @eventsStartIdee %>
-eventsEndIdee = <%= @eventsEndIdee %>
 var eventListSub = eval((<%= raw @eventsSourceList.to_json %>));
 eventList = eventListBase.concat(eventListSub);
 
@@ -68,4 +67,5 @@ Click on the "W" if you need help.</h4>
      {dropOnEmpty:true,containment:["firstlist","fourthlist"],constraint:false, onChange: refresh});
 		    Sortable.create("fourthlist",
      {dropOnEmpty:true,handle:'handle',containment:["firstlist","fourthlist"],constraint:false, onUpdate: compare}); 
+      // ]]>
  </script>

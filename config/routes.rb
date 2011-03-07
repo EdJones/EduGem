@@ -61,8 +61,12 @@ match 'play' => 'play#start'
       get 'bonus2_result'
       post 'bonus2_result'
       get 'gameUpdate4a'
-      
-      
+      get 'gameUpdate4b'
+      get 'gameUpdate4w'
+      get 'gameUpdate5h'
+      get 'gameUpdate5i'
+      get 'gameUpdateDone'
+      get 'level_up'
     end
   end
 

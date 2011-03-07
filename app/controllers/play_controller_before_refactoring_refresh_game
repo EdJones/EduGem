@@ -6,40 +6,7 @@ def index
   redirect_to :controller => 'play', :action => 'start'
 end
 
-  def start
-   #who is coming to visit?
-   #logger.debug "request.remote_ip: #{request.remote_ip}"
-   #@location = locateIp()
-   logger.debug "*****@location: #{@location}"
-   #visitor = Traffic.create(:ip => request.remote_ip)
-   @game_id = 0
-   @time = Time.now
-   @high_scores = GameStat.find(:all, :order => "high_score DESC", :limit => "5") - GameStat.find(:all, :conditions => {:login => 'ej0c'})
-   #get_events(6, 19)
-      @events = Event.find(:all, 
-          :order => "idee") 
-    @didjis = MyDigi.find(:all, :conditions => { :public_play => true }) - MyDigi.find(:all, :conditions => {:id => '13'})
-          
-      if logged_in?     
-    # Short for:
-    #    unless GameStat.find_by_login(current_user.login)
-    #  ... @current_game = GameStat.create({:login => current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0})
-  @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
-   
-   # For when we have multiple versions:
-  session[:current_game] = @current_game
 
-  @current_game.update_start_time() 
-
- # need to separate current game stats from current player's cum stats  OR Current_player line needs to be eeked out of views
-  @current_player = GameStat.find_by_login(current_account.username)
-  else
-    #@traffic = Traffic.create
-
- end
- # to process event suggestions
- @event_suggestion = EventSuggestion.new
- end
  
  def gameUpdate2
      
@@ -72,16 +39,21 @@ end
         
     
   def gameUpdate2a    
-    @gameLevel = GameLevel.find_by_level_and_modifier(2, 'a')
-@next_level = GameLevel.find_by_level_and_modifier(2, 'b')
-@link_message = "Continue with Level" + @next_level.level.to_s + ": " + @next_level.tagline
-    refresh_game()
+    @level = "2a"
+    @eventsStartIdee = 20
+    @eventsEndIdee = 33
+    @eventsTimeBase = get_events(0,5)
+    @events = get_events(@eventsStartIdee, @eventsEndIdee)
+    refresh_game(@level)
   end
 
-  def gameUpdate2b 
-    @gameLevel = GameLevel.find_by_level_and_modifier(2, 'b')
-@next_Level = GameLevel.find_by_level_and_modifier(3, 'p')    
-    refresh_game()
+  def gameUpdate2b    
+    @level = "2b"
+    @eventsStartIdee = 215
+    @eventsEndIdee = 228
+    @eventsTimeBase = get_events(0,5)
+    get_events(@eventsStartIdee, @eventsEndIdee)
+    refresh_game(@level)
   end  
   
   # Render the Bonus attempt view
@@ -134,16 +106,15 @@ end
   
   # experimental: trying to not send entire list to browser
   def gameUpdate3p
-    @gameLevel = GameLevel.find_by_level_and_modifier(3, 'p')      
+    @gameLevel = GameLevel.find_by_modifier('p')      
     #@level = "3p"
-    @next_level = GameLevel.find_by_level_and_modifier(3, 'b')
     @level = @gameLevel.level.to_s + @gameLevel.modifier
-    #S@eventsStartIdee = @gameLevel.start_idee
-    #@eventsEndIdee = @gameLevel.end_idee
+    @eventsStartIdee = @gameLevel.start_idee
+    @eventsEndIdee = @gameLevel.end_idee
 
-    #@eventsTimeBase = get_events(0,5)
-    #@eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
-    refresh_game()    
+    @eventsTimeBase = get_events(0,5)
+    @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+    refresh_game(@level)    
     #session[:current_score] = params[:score].to_i
     #session[:current_game].update_high_score(params[:score].to_i)
     #render :update do |page|
@@ -158,21 +129,34 @@ end
   #For this one, try with the GameLevels model determining vars
   def gameUpdate3b 
     @gameLevel = GameLevel.find_by_modifier('b')
-    @next_level = GameLevel.find_by_level_and_modifier(3, 'v') 
-    refresh_game()
+      
+    @level = @gameLevel.level.to_s + @gameLevel.modifier
+    @nextLevel = "3v"
+    @eventsStartIdee = @gameLevel.start_idee
+    @eventsEndIdee = @gameLevel.end_idee
+    @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+     refresh_game(@level)
   end
   
     def gameUpdate3z 
-        @gameLevel = GameLevel.find_by_level_and_modifier(3, 'z')      
-        @next_level = GameLevel.find_by_level_and_modifier(4, 'a')        
-    refresh_game()
+    @gameLevel = GameLevel.find_by_modifier('z')        
+    @level = @gameLevel.level.to_s + @gameLevel.modifier
+    @level_tagline = @gameLevel.tagline
+    @eventsStartIdee = @gameLevel.start_idee
+    @eventsEndIdee = @gameLevel.end_idee
+    @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+     refresh_game(@level)
   end
 
 
     def gameUpdate3v
-        @gameLevel = GameLevel.find_by_level_and_modifier(3, 'v')      
-        @next_level = GameLevel.find_by_level_and_modifier(3, 'z')     
-        refresh_game()
+    @gameLevel = GameLevel.find_by_modifier('v')        
+    @level = "3v"
+    @level_tagline = "Misc."
+    @eventsStartIdee = @gameLevel.start_idee
+    @eventsEndIdee = @gameLevel.end_idee
+    @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+     refresh_game(@level)
   end
 
 # Render the Bonus attempt view
@@ -210,38 +194,44 @@ end
   end
 
     def gameUpdate4a    
-       @gameLevel = GameLevel.find_by_level_and_modifier(4, 'a')
-       @next_level = GameLevel.find_by_level_and_modifier(4, 'b') 
-       refresh_game()
+       @level = "4a"
+       @eventsStartIdee = @gameLevel.start_idee
+       @eventsEndIdee = @gameLevel.end_idee
+       @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+       refresh_game(@level)
     end    
-         def level_up    
-       @gameLevel = GameLevel.find_by_level_and_modifier(4, 'b')
-       @next_level = GameLevel.find_by_level_and_modifier(4, 'w') 
-       refresh_game()
-    end      
+          
           
     def gameUpdate4b    
-        @gameLevel = GameLevel.find_by_level_and_modifier(4, 'b')
-        @next_level = GameLevel.find_by_level_and_modifier(4, 'w') 
-        refresh_game()
+        @level = "4b"
+        @eventsStartIdee = @gameLevel.start_idee
+        @eventsEndIdee = @gameLevel.end_idee
+        @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+        refresh_game(@level)
      end   
       
-    def gameUpdate4w
-        @gameLevel = GameLevel.find_by_level_and_modifier(4, 'w')    
-        @next_level = GameLevel.find_by_level_and_modifier(5, 'h')         
-        refresh_game()
+    def gameUpdate4w   
+      @level = "4w"            
+      @eventsStartIdee = @gameLevel.start_idee
+      @eventsEndIdee = @gameLevel.end_idee
+      @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+      refresh_game(@level)
     end    
                 
     def gameUpdate5h    
-        @gameLevel = GameLevel.find_by_level_and_modifier(5, 'h')
-        @next_level = GameLevel.find_by_level_and_modifier(5, 'i')
-        refresh_game()
+      @level = "5h"            
+      @eventsStartIdee = @gameLevel.start_idee
+      @eventsEndIdee = @gameLevel.end_idee
+      @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+      refresh_game(@level)
       end 
                       
     def gameUpdate5i    
-        @gameLevel = GameLevel.find_by_level_and_modifier(5, 'i')
-@next_level =  "gameUpdateDone"      
-        refresh_game()
+      @level = "5i"            
+      @eventsStartIdee = @gameLevel.start_idee
+      @eventsEndIdee = @gameLevel.end_idee
+      @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
+      refresh_game(@level)
       end 
            
     def gameUpdateDone   
@@ -250,7 +240,7 @@ end
       
       session[:current_game].update_game_duration
        # to process event suggestions
-        @event_suggestion = EventSuggestion.new
+ @event_suggestion = EventSuggestion.new
       end    
       
   def agreement
@@ -283,7 +273,40 @@ def show
       format.xml  { render :xml => @my_digis }
     end
 end
+  def start
+   #who is coming to visit?
+   #logger.debug "request.remote_ip: #{request.remote_ip}"
+   #@location = locateIp()
+   logger.debug "*****@location: #{@location}"
+   #visitor = Traffic.create(:ip => request.remote_ip)
+   @game_id = 0
+   @time = Time.now
+   @high_scores = GameStat.find(:all, :order => "high_score DESC", :limit => "5") - GameStat.find(:all, :conditions => {:login => 'ej0c'})
+   #get_events(6, 19)
+      @events = Event.find(:all, 
+          :order => "idee") 
+    @didjis = MyDigi.find(:all, :conditions => { :public_play => true }) - MyDigi.find(:all, :conditions => {:id => '13'})
+          
+      if logged_in?     
+    # Short for:
+    #    unless GameStat.find_by_login(current_user.login)
+    #  ... @current_game = GameStat.create({:login => current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0})
+  @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
+   
+   # For when we have multiple versions:
+  session[:current_game] = @current_game
 
+  @current_game.update_start_time() 
+
+ # need to separate current game stats from current player's cum stats  OR Current_player line needs to be eeked out of views
+  @current_player = GameStat.find_by_login(current_account.username)
+  else
+    #@traffic = Traffic.create
+
+ end
+ # to process event suggestions
+ @event_suggestion = EventSuggestion.new
+ end
 
 # try this with custom games and digis
   def start2
@@ -317,12 +340,9 @@ end
   private
   
   # Update game view for normal levels
- def refresh_game()
+ def refresh_game(level)
     # @events = Event.find(:all, 
       #    :order => "idee")
-      
-    @level = @gameLevel.level.to_s + @gameLevel.modifier
-    @nextlevel = @next_level.level.to_s + @next_level.modifier
    if logged_in?
     session[:current_score] = params[:score].to_i
     session[:current_game].update_high_score(params[:score].to_i)
@@ -333,16 +353,7 @@ end
    else
      @highScore = " "
      @displayGameTime = " "
- end
-
-
-    @level_tagline = @gameLevel.tagline
-    @eventsStartIdee = @gameLevel.start_idee
-    @eventsEndIdee = @gameLevel.end_idee
-    @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
-    
-    @link_message = "Continue with Level" + @next_level.level.to_s + ": " + @next_level.tagline
-    
+   end  
    render :update do |page|
         if logged_in?
        page.replace_html "highScore", :text => @highScore.to_s
@@ -352,11 +363,7 @@ end
        page.replace_html "displayCorrect", :text => "0/0";
        logger.info("reached the displayCorrect")
        page.replace_html "message", :text => ""
-       if @gameLevel.level == 4
-           page.replace_html "game", :partial => "level"
-           else
-       page.replace_html "game", :partial => "level"+ @level.to_s
-       end
+       page.replace_html "game", :partial => "level"+ level.to_s
      end
 
 end

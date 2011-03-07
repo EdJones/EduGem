@@ -24,11 +24,13 @@ Click on the "W" if you need help.</h4>
  <ul class="sortabledemo" id="firstlist" style="height:150px;width:260px;">
  <span class="style3">Across the Centuries</span><br />
 
- <div id="levelUp" ><br />Sweet! <%= link_to "Try for Bonus!", { :action => "gameUpdate2bonus" }, :remote => true, :with => "'score='+accumPoints" %> </div>
+ <div id="levelUp" >
+ <%= link_to  @link_message, { :action => "gameUpdate2bonus" }, :remote => true, :with => "'score='+accumPoints" %>
+ <br />Sweet! <%= link_to "Try for Bonus!", { :action => "gameUpdate2bonus" }, :remote => true, :with => "'score='+accumPoints" %> </div>
 <% for event in @events %>
      <li class="green" id="firstlist_<%= event.idee %>"><%= event.title %><%= link_to "W", event.wikip_url, { :popup => ['Wikipedia', 'height=600,width=700'] } %></li>
   <% end %>
-<div id="message4">If ur afraid, you can <%= link_to_remote "Try for Bonus", :url => { :action => "gameUpdate2bonus" }, :with => "'score='+accumPoints" %></div>
+<div id="message4">If ur afraid, you can <%= link_to "Try for Bonus", { :action => "gameUpdate2bonus" }, :remote => true, :with => "'score='+accumPoints" %></div>
 </ul>
 </div>
 

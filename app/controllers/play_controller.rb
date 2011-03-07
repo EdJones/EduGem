@@ -28,6 +28,7 @@ end
    
    # For when we have multiple versions:
   session[:current_game] = @current_game
+  session[:game_structure] = [[3, "p"], [3, "b"], [3, "v"], [4, "a"], [4, "b"], [4, "w"], [5, "h"], [5, "i"], [6, "a"]]
 
   @current_game.update_start_time() 
 
@@ -134,25 +135,14 @@ end
   
   # experimental: trying to not send entire list to browser
   def gameUpdate3p
-    @gameLevel = GameLevel.find_by_level_and_modifier(3, 'p')      
+    gameLevel =   session[:game_structure].pop
+    @gameLevel = GameLevel.find_by_level_and_modifier(gameLevel[0], gameLevel[1])      
     #@level = "3p"
+    logger.debug(@gameLevel)
     @next_level = GameLevel.find_by_level_and_modifier(3, 'b')
     @level = @gameLevel.level.to_s + @gameLevel.modifier
-    #S@eventsStartIdee = @gameLevel.start_idee
-    #@eventsEndIdee = @gameLevel.end_idee
-
-    #@eventsTimeBase = get_events(0,5)
-    #@eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
     refresh_game()    
-    #session[:current_score] = params[:score].to_i
-    #session[:current_game].update_high_score(params[:score].to_i)
-    #render :update do |page|
-    #page.replace_html "highScore", :text => session[:current_game].high_score
-    #page.replace_html "displayCorrect", :text => "0/0";
-    #page.replace_html "message", :text => ""
-    #page.replace_html "displayGameTime", :inline => "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
-    #page.replace_html "game", :partial => "level"+ @level.to_s
-    #end
+
   end    
   
   #For this one, try with the GameLevels model determining vars
@@ -213,10 +203,13 @@ end
        @gameLevel = GameLevel.find_by_level_and_modifier(4, 'a')
        @next_level = GameLevel.find_by_level_and_modifier(4, 'b') 
        refresh_game()
-    end    
-         def level_up    
-       @gameLevel = GameLevel.find_by_level_and_modifier(4, 'b')
-       @next_level = GameLevel.find_by_level_and_modifier(4, 'w') 
+   end    
+   
+    def level_up
+        gameLevel =   session[:game_structure].shift
+        next_level =   session[:game_structure].first
+        @gameLevel = GameLevel.find_by_level_and_modifier(gameLevel[0], gameLevel[1])              
+        @next_level = GameLevel.find_by_level_and_modifier(next_level[0], next_level[1]) 
        refresh_game()
     end      
           
@@ -240,7 +233,7 @@ end
                       
     def gameUpdate5i    
         @gameLevel = GameLevel.find_by_level_and_modifier(5, 'i')
-@next_level =  "gameUpdateDone"      
+        @next_level =  "gameUpdateDone"      
         refresh_game()
       end 
            
@@ -352,10 +345,12 @@ end
        page.replace_html "displayCorrect", :text => "0/0";
        logger.info("reached the displayCorrect")
        page.replace_html "message", :text => ""
-       if @gameLevel.level == 4
+       if @next_level.level == 6
+           page.replace_html "game", :partial => "gameUpdateDone"
+       elsif @next_level.level >= 3
            page.replace_html "game", :partial => "level"
-           else
-       page.replace_html "game", :partial => "level"+ @level.to_s
+       else    
+           page.replace_html "game", :partial => "level"+ @level.to_s
        end
      end
 

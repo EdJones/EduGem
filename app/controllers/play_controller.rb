@@ -137,15 +137,16 @@ end
      
      #session[:current_score] = params[:score].to_i
    if params[:date_choice] == "yep" && params[:date2_choice] == "yep" 
-        choice = "a"
-    elsif params[:date_choice] == "yep"
-        choice = "b"
-    elsif params[:date2_choice] == "yep"
-        choice = "c"
-    else 
         choice = "d"
+    elsif params[:date_choice] == "yep"
+        choice = "c"
+    elsif params[:date2_choice] == "yep"
+        choice = "a"
+    else 
+        choice = "b"
   end
-  @bonus_round = BonusRound.find_by_level_and_modifier(2,choice)
+  @bonus_round = BonusRound.find_by_level_and_choice(2, choice)
+  logger.debug "bonus_round: #{@bonus_round }, choice: #{ choice }"
   @current_game.update_high_score(@bonus_round.points)
   refresh_scoring_a()
   end
@@ -206,7 +207,6 @@ end
     def gameUpdateDone   
       session[:current_score] = params[:score].to_i
       session[:current_game].update_high_score(params[:score].to_i)
-      
       session[:current_game].update_game_duration
        # to process event suggestions
         @event_suggestion = EventSuggestion.new
@@ -301,7 +301,7 @@ end
     @eventsSourceList = get_events(@eventsStartIdee, @eventsEndIdee)
     
     @link_message = "Continue with Level" + @next_level.level.to_s + ": " + @next_level.tagline
-    
+    @event_suggestion = EventSuggestion.new
    render :update do |page|
         if logged_in?
        page.replace_html "highScore", :text => @highScore.to_s
@@ -311,7 +311,7 @@ end
        page.replace_html "displayCorrect", :text => "0/0";
        logger.info("reached the displayCorrect")
        page.replace_html "message", :text => ""
-       if @next_level.level == 6
+       if @gameLevel.level == 6
            page.replace_html "game", :partial => "gameUpdateDone"
        elsif @next_level.level >= 3
            page.replace_html "game", :partial => "level"

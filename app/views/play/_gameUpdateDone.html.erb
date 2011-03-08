@@ -1,0 +1,60 @@
+<div id="playArea">
+    <%= render(:partial => "search_box") %>
+
+<div id="sourceListDiv" style="float:left;">
+<h4>End of Game<BR />
+</h4>
+ <div id="message2"></div>
+ <p class="style3">Ooh. Sorry. <br />We're workin on it, but for now this is it.<br /> <br />Help us build the rest of the game!</p><br />
+ <div id="message1"></div>
+ <div id="levelUp" ><br />Sweet! <%= link_to_remote "Stay Tuned for Level 4", :url => { :action => "gameUpdate" } %> </div>
+<br />
+<br />
+How did you do? I made 498000 points in 24 minutes flat. But, I took a break for tea. Can you beat me?
+
+
+</div>
+
+
+<!--end sourceListDiv-->
+<div id="rightmain">
+<script src="http://whendidji.uservoice.com/pages/general/widgets/tab.js?alignment=right&amp;color=FFFFFF" type="text/javascript">
+</script>
+</div>
+  <div id="centercolfloatleft" style="float:left;">
+
+	<!--end centerlistdiv-->
+ </div>
+ <!--end centercolfloatleft-->
+	<div id="rightcolumn" style="float:left">
+<div id="ad1">
+<div id="suggestion">
+What event do u think <br />should b here?
+<%= form_for(@event_suggestion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field(:title , :size => 20) %>
+  </p>
+  <p>
+    <%= f.label :comment %><br />
+    <%= f.text_area(:comment, :size => "17x5") %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+		</div>
+		 </div>
+		  <!--end ad1-->
+
+
+ </div>
+  <!--end  rightcolumn-->
+ </div>
+ <!--end  rightmain-->
+</div>
+  <!--end  playArea-->
+<!--end verticalstretch-->

@@ -66,9 +66,6 @@ end
         page.replace_html "game", :partial => "signup"
       end
     end
-
-    #     @events = Event.find(:all, 
-     #     :order => "idee")
   end
         
     
@@ -97,7 +94,7 @@ end
     @displayGameTime = "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
     render :update do |page|
        page.replace_html "displayGameTime", :text => @displayGameTime
-       page.replace_html "game", :partial => "level2_bonus"
+       page.replace_html "game", :partial => "level2_bonus_question"
        page.replace_html "highScore", :text => @highScore
        page.replace_html "message", :text => ""
        page.replace_html "displayCorrect", :text => "0/0";
@@ -133,37 +130,32 @@ end
     end
   end
   
+  
+  # Process more generic bonus attempts
+     def bonus_result
+     @current_game = GameStat.find_by_login(current_account.username)
+     
+     #session[:current_score] = params[:score].to_i
+   if params[:date_choice] == "yep" && params[:date2_choice] == "yep" 
+        choice = "a"
+    elsif params[:date_choice] == "yep"
+        choice = "b"
+    elsif params[:date2_choice] == "yep"
+        choice = "c"
+    else 
+        choice = "d"
+  end
+  @bonus_round = BonusRound.find_by_level_and_modifier(2,choice)
+  @current_game.update_high_score(@bonus_round.points)
+  refresh_scoring_a()
+  end
+
+  
   # experimental: trying to not send entire list to browser
-  def gameUpdate3p
-    gameLevel =   session[:game_structure].pop
-    @gameLevel = GameLevel.find_by_level_and_modifier(gameLevel[0], gameLevel[1])      
-    #@level = "3p"
-    logger.debug(@gameLevel)
-    @next_level = GameLevel.find_by_level_and_modifier(3, 'b')
-    @level = @gameLevel.level.to_s + @gameLevel.modifier
-    refresh_game()    
-
-  end    
+    
   
-  #For this one, try with the GameLevels model determining vars
-  def gameUpdate3b 
-    @gameLevel = GameLevel.find_by_modifier('b')
-    @next_level = GameLevel.find_by_level_and_modifier(3, 'v') 
-    refresh_game()
-  end
-  
-    def gameUpdate3z 
-        @gameLevel = GameLevel.find_by_level_and_modifier(3, 'z')      
-        @next_level = GameLevel.find_by_level_and_modifier(4, 'a')        
-    refresh_game()
-  end
+  #For gameUpdate3b , try with the GameLevels model determining vars
 
-
-    def gameUpdate3v
-        @gameLevel = GameLevel.find_by_level_and_modifier(3, 'v')      
-        @next_level = GameLevel.find_by_level_and_modifier(3, 'z')     
-        refresh_game()
-  end
 
 # Render the Bonus attempt view
     def gameUpdate3bonus    
@@ -199,11 +191,7 @@ end
     end
   end
 
-    def gameUpdate4a    
-       @gameLevel = GameLevel.find_by_level_and_modifier(4, 'a')
-       @next_level = GameLevel.find_by_level_and_modifier(4, 'b') 
-       refresh_game()
-   end    
+ 
    
     def level_up
         gameLevel =   session[:game_structure].shift
@@ -213,29 +201,7 @@ end
        refresh_game()
     end      
           
-    def gameUpdate4b    
-        @gameLevel = GameLevel.find_by_level_and_modifier(4, 'b')
-        @next_level = GameLevel.find_by_level_and_modifier(4, 'w') 
-        refresh_game()
-     end   
-      
-    def gameUpdate4w
-        @gameLevel = GameLevel.find_by_level_and_modifier(4, 'w')    
-        @next_level = GameLevel.find_by_level_and_modifier(5, 'h')         
-        refresh_game()
-    end    
-                
-    def gameUpdate5h    
-        @gameLevel = GameLevel.find_by_level_and_modifier(5, 'h')
-        @next_level = GameLevel.find_by_level_and_modifier(5, 'i')
-        refresh_game()
-      end 
-                      
-    def gameUpdate5i    
-        @gameLevel = GameLevel.find_by_level_and_modifier(5, 'i')
-        @next_level =  "gameUpdateDone"      
-        refresh_game()
-      end 
+
            
     def gameUpdateDone   
       session[:current_score] = params[:score].to_i
@@ -366,10 +332,20 @@ end
        page.replace_html "message", :text => ""
        page.replace_html "displayCorrect", :text => correct
        page.replace_html "displayGameTime", :inline => "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
-       page.replace_html "bonus_content", :partial => partial
+       page.replace_html "bonus_content", :partial => bonus_result
   end   
 end
-
+  def refresh_scoring_a()
+    session[:current_score] =  session[:current_score] + @bonus_round.points
+    render :update do |page|
+       page.replace_html "displayPoints", :text => session[:current_score]
+       page.replace_html "highScore", :text => session[:current_game].high_score
+       page.replace_html "message", :text => ""
+       page.replace_html "displayCorrect", :text => @bonus_round.message2
+       page.replace_html "displayGameTime", :inline => "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
+       page.replace_html "bonus_content", :partial => "bonus_result"
+  end   
+end
 # For now, just pull them out of master list, 14 in a row. Later it will accept custom games.
 def get_events(first, last)
   @game_id = 0

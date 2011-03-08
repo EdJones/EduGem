@@ -25,7 +25,7 @@ Click on the "W" if you need help.</h4>
  <span class="style3">Across the Centuries</span><br />
 
  <div id="levelUp" >
- <%= link_to  @link_message, { :action => "gameUpdate2bonus" }, :remote => true, :with => "'score='+accumPoints" %>
+ <%= link_to  @link_message, { :action => "gameUpdate2b" }, :remote => true, :with => "'score='+accumPoints" %>
  <br />Sweet! <%= link_to "Try for Bonus!", { :action => "gameUpdate2bonus" }, :remote => true, :with => "'score='+accumPoints" %> </div>
 <% for event in @events %>
      <li class="green" id="firstlist_<%= event.idee %>"><%= event.title %><%= link_to "W", event.wikip_url, { :popup => ['Wikipedia', 'height=600,width=700'] } %></li>

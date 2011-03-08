@@ -1,4 +1,8 @@
 Whendidji3a::Application.routes.draw do
+  resources :mchoices
+
+  resources :bonus_rounds
+
   resources :game_levels
 
   match 'account/edit' => 'accounts#edit', :as => :edit_current_account
@@ -67,6 +71,8 @@ match 'play' => 'play#start'
       get 'gameUpdate5i'
       get 'gameUpdateDone'
       get 'level_up'
+      get 'bonus_result'
+      post 'bonus_result'
     end
   end
 

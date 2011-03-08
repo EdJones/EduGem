@@ -1,0 +1,50 @@
+<%= form_for(@bonus_round) do |f| %>
+  <% if @bonus_round.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bonus_round.errors.count, "error") %> prohibited this bonus_round from being saved:</h2>
+
+      <ul>
+      <% @bonus_round.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :level %><br />
+    <%= f.text_field :level %>
+  </div>
+  <div class="field">
+    <%= f.label :choice %><br />
+    <%= f.text_field :choice %>
+  </div>
+  <div class="field">
+    <%= f.label :message1 %><br />
+    <%= f.text_field :message1 %>
+  </div>
+  <div class="field">
+    <%= f.label :message2 %><br />
+    <%= f.text_field :message2 %>
+  </div>
+  <div class="field">
+    <%= f.label :points %><br />
+    <%= f.text_field :points %>
+  </div>
+  <div class="field">
+    <%= f.label :points_message %><br />
+    <%= f.text_field :points_message %>
+  </div>
+  <div class="field">
+    <%= f.label :level_up_message %><br />
+    <%= f.text_field :level_up_message %>
+  </div>
+    <div class="field">
+    <%= f.label :level_up_message %><br />
+    <%= f.text_field :level_up_message %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

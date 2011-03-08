@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Level:</b>
+  <%= @bonus_round.level %>
+</p>
+
+<p>
+  <b>Message1:</b>
+  <%= @bonus_round.message1 %>
+</p>
+
+<p>
+  <b>Message2:</b>
+  <%= @bonus_round.message2 %>
+</p>
+
+<p>
+  <b>Points:</b>
+  <%= @bonus_round.points %>
+</p>
+
+<p>
+  <b>Points message:</b>
+  <%= @bonus_round.points_message %>
+</p>
+
+<p>
+  <b>Level up message:</b>
+  <%= @bonus_round.level_up_message %>
+</p>
+
+<p>
+  <b>Modifier:</b>
+  <%= @bonus_round.modifier %>
+</p>
+
+
+<%= link_to 'Edit', edit_bonus_round_path(@bonus_round) %> |
+<%= link_to 'Back', bonus_rounds_path %>

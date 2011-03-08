@@ -1,0 +1,37 @@
+<h1>Listing bonus_rounds</h1>
+
+<table>
+  <tr>
+    <th>Level</th>
+    <th>choice</th>
+    <th>Message1</th>
+    <th>Message2</th>
+    <th>Points</th>
+    <th>Points message</th>
+    <th>Level up message</th>
+    <th>Modifier</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bonus_rounds.each do |bonus_round| %>
+  <tr>
+    <td><%= bonus_round.level %></td>
+    <td><%= bonus_round.choice %></td>
+    <td><%= bonus_round.message1 %></td>
+    <td><%= bonus_round.message2 %></td>
+    <td><%= bonus_round.points %></td>
+    <td><%= bonus_round.points_message %></td>
+    <td><%= bonus_round.level_up_message %></td>
+    <td><%= bonus_round.modifier %></td>
+    <td><%= link_to 'Show', bonus_round %></td>
+    <td><%= link_to 'Edit', edit_bonus_round_path(bonus_round) %></td>
+    <td><%= link_to 'Destroy', bonus_round, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bonus round', new_bonus_round_path %>

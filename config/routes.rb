@@ -1,4 +1,6 @@
 Whendidji3a::Application.routes.draw do
+  resources :assessments
+
   resources :mchoices
 
   resources :bonus_rounds
@@ -73,6 +75,7 @@ match 'play' => 'play#start'
       get 'level_up'
       get 'bonus_result'
       post 'bonus_result'
+      get 'start100'
     end
   end
 

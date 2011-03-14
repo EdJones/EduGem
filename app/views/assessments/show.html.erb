@@ -1,0 +1,29 @@
+<% title "Assessment" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @assessment.name %>
+</p>
+<p>
+  <strong>Level:</strong>
+  <%= @assessment.level %>
+</p>
+<p>
+  <strong>Assessment Type:</strong>
+  <%= @assessment.assessment_type %>
+</p>
+ <ol>  
+   <% for question in @assessment.questions %>  
+   <li><%=  question.content %></li>  
+   <ul>  
+     <% for answer in question.answers %>  
+       <li><%=  answer.content %></li>  
+     <% end %>  
+   </ul>  
+   <% end %>  
+ </ol>  
+<p>
+  <%= link_to "Edit", edit_assessment_path(@assessment) %> |
+  <%= link_to "Destroy", @assessment, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", assessments_path %>
+</p>

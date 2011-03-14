@@ -1,0 +1,21 @@
+<% title "Assessments" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Level</th>
+    <th>Assessment Type</th>
+  </tr>
+  <% for assessment in @assessments %>
+    <tr>
+      <td><%= assessment.name %></td>
+      <td><%= assessment.level %></td>
+      <td><%= assessment.assessment_type %></td>
+      <td><%= link_to "Show", assessment %></td>
+      <td><%= link_to "Edit", edit_assessment_path(assessment) %></td>
+      <td><%= link_to "Destroy", assessment, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Assessment", new_assessment_path %></p>

@@ -1,0 +1,24 @@
+ <!---The explanation for all this is in episode 196 of Railscasts -->
+ 
+ <% form_for @assessment do |f| %>  
+   <%= f.error_messages %>  
+   <p>  
+     <%= f.label :name %>  
+     <%= f.text_field :name %>  
+<br />
+    <%= f.label :level %>
+    <%= f.text_field :level %>
+<br />
+    <%= f.label :assessment_type %>
+    <%= f.text_field :assessment_type %>
+  </p>
+   <% f.fields_for :questions do |builder| %>  
+     <%= render 'question_fields', :f => builder %>  
+   <% end %>
+  <p>
+    <%= link_to_add_fields "Add a question", f, :questions %>    
+   <p><%= f.submit "Submit" %></p>  
+ <% end %> 
+
+
+

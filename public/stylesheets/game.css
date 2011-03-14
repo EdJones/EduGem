@@ -33,6 +33,12 @@ padding: 0px;
 	border-width:1px;
 }
 
+#header100 {
+width: 500px;
+margin-left: 250px;
+	
+}
+
 #playArea {
 height: 660px;
 }

@@ -328,6 +328,8 @@ margin: 0 10px;
 }
 .roundedcornr_bottom_428578 div {
    background: url(../images/roundedcornr_428578_bl.gif) no-repeat bottom left;
+   text-align: right;
+   font-size: smaller;
 }
 .roundedcornr_bottom_428578 {
    background: transparent url(../images/roundedcornr_428578_br.gif) no-repeat bottom right;

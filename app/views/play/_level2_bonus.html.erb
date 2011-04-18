@@ -30,7 +30,7 @@
 	<%= radio_button_tag :date2_choice, :choice_4 %> 1200 <br />
 
    <div id="result">
-   <div id = "next"> <%= submit_tag "Gimme my bonus!" %></div>
+   <div id = "next"> <%= submit_tag "Gimme my bonus!", :with => "'score='+accumPoints" %></div>
    </div>
 <% end %>
 </div>

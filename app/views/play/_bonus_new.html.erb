@@ -1,3 +1,5 @@
+<% title "Assessment" %>
+
 <div id="level_info">
 
 
@@ -17,18 +19,16 @@
                        :url => { :action => :bonus_result },
                        :position => "top" ) do %>
 
-	1) (1000 bonus points) Columbus took Queen Isabella's money and went west in:	<br />
-	<%= radio_button_tag :date_choice, :foo %> 1760
-	<%= radio_button_tag :date_choice, :bar %> 1530
-	<%= radio_button_tag :date_choice, :yep %> 1492
-	<%= radio_button_tag :date_choice, :nope %> 1320 <br />
-  <br />
-  2) (2000 bonus points) Imperial Rome got the Sack in<br />
-  <%= radio_button_tag :date2_choice, :choice_1 %> 500 BC
-	<%= radio_button_tag :date2_choice, :choice_2 %> 43BC
-	<%= radio_button_tag :date2_choice, :yep %> 410
-	<%= radio_button_tag :date2_choice, :choice_4 %> 1200 <br />
-
+ <ol>  
+   <% for question in @assessment.questions %>  
+   <li> (<%= @bonus_round.points %> points) <%=  question.content %></li>  
+   <ul>  
+     <% for answer in question.answers %>  
+       <%= radio_button_tag( (":date_choice" + question.id), answer.id %>) <%=  answer.content %>  
+     <% end %>  
+   </ul>  
+   <% end %>  
+ </ol>  
    <div id="result">
    <div id = "next"> <%= submit_tag "Gimme my bonus!" %></div>
    </div>
@@ -36,7 +36,13 @@
 </div>
       </div>
 
-   <div class="roundedcornr_bottom_428578"><div></div></div>
+   <div class="roundedcornr_bottom_428578"><div>
+  Name:
+  <%= @assessment.name %>
+
+  Level:
+  <%= @assessment.level %>
+</div></div>
 </div>
 
 <p> </p>

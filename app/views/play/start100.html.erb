@@ -7,22 +7,15 @@ lastPoints=0;
 accumPoints = 0;
 </script>
 <div id="pagewidth">
+<div id="header100">
+<h1>100 People</h1>
+<h3>A simple game.<br />
+One hundred of the most famous people of all time.</h3> 
 
-<!--begin page header-->  
-  <div id="header">  
-    <div class="style9">
-        <span align="left" class="challenge">Dude, Surely you can put these famous people in order! <br /></span>
-    </div>
-      <div id="lowerMast">
-          <div id="mastImage" width="300">
-              <img src="../images/bluej160d.png" align="left">
-      </div>
-        <div id="canteachers" class="challenge" align="right">
-       (But can your teachers?)
-      </div>
-      <div class="brand" > <img id="brandImage" align="right"  src="../images/whendidji.gif"></div>
-    </div>
-  </div>
+Put them in order of what they did.
+
+</div>
+
 <!--end page header-->
 <div id="container">
 <div id="scoring">
@@ -78,13 +71,13 @@ accumPoints = 0;
     <%= render(:partial => "search_box") %>
 <div id="sourceListDiv" style="float:left;">
 <div class="instructions">
-<h4>How many can you get?<BR />
+<h4>Level 1: Five Easy Rock Stars<BR />
 Click on the "W" if you need help.</h4>
 </div><br />
 <div id="message2">&nbsp;</div>
 <ul class="sortabledemo" id="firstlist" style="height:150px;width:260px;">
 <span class="style3">Drag Events from Here</span><br />
-<div id="levelUp" ><br />You got them All!! <%= link_to "Go to Level 2",  { :action => "gameUpdate2" }, :remote => true, :with => "'score=' + accumPoints" %> 
+<div id="levelUp" ><br />You got them All!! <%= link_to "Go to Level 2",  { :action => "gameUpdate2" }, :remote => true, %> 
 </div>
 <!-- @events.length -->
 <% for event in @events[6..19] %>
@@ -92,7 +85,7 @@ Click on the "W" if you need help.</h4>
 </li>
   <% end %>
 
-<div id="message4">If ur afraid, you can <%= link_to "Go to Level 2",  { :action => "gameUpdate2" }, :remote => true, %> </div>
+<div id="message4">If ur afraid, you can <%= link_to "Go to Level 2", :remote => true, :url => { :action => "gameUpdate2" }, :with => "'score='+accumPoints" %></div>
 </ul>
 </div>
 <!--end sourceListDiv-->

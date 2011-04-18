@@ -7,17 +7,18 @@ def index
 end
 
   def start
+  #For 100 People game   
+  
    #who is coming to visit?
    #logger.debug "request.remote_ip: #{request.remote_ip}"
    #@location = locateIp()
-   logger.debug "*****@location: #{@location}"
+   #logger.debug "*****@location: #{@location}"
    #visitor = Traffic.create(:ip => request.remote_ip)
-   @game_id = 0
-   @time = Time.now
-   @high_scores = GameStat.find(:all, :order => "high_score DESC", :limit => "5") - GameStat.find(:all, :conditions => {:login => 'ej0c'})
+    @game_id = 0
+    @time = Time.now
+    @high_scores = GameStat.find(:all, :order => "high_score DESC", :limit => "5") - GameStat.find(:all, :conditions => {:login => 'ej0c'})
    #get_events(6, 19)
-      @events = Event.find(:all, 
-          :order => "idee") 
+    @events = Event.find(:all, :order => "idee") 
     @didjis = MyDigi.find(:all, :conditions => { :public_play => true }) - MyDigi.find(:all, :conditions => {:id => '13'})
           
       if logged_in?     
@@ -28,6 +29,47 @@ end
    
    # For when we have multiple versions:
   session[:current_game] = @current_game
+  
+  #A hack bridging the original static page structure to dynamic game creation. These are the levels of play
+  session[:game_structure] = [[3, "p"], [3, "b"], [3, "v"], [4, "a"], [4, "b"], [4, "w"], [5, "h"], [5, "i"], [6, "a"]]
+
+  @current_game.update_start_time() 
+
+ # need to separate current game stats from current player's cum stats  OR Current_player line needs to be eeked out of views
+  @current_player = GameStat.find_by_login(current_account.username)
+  else
+    #@traffic = Traffic.create
+
+ end
+ # to process event suggestions
+ @event_suggestion = EventSuggestion.new
+ end
+ 
+ def start100
+  #For 100 People game   
+  
+   #who is coming to visit?
+   #logger.debug "request.remote_ip: #{request.remote_ip}"
+   #@location = locateIp()
+   #logger.debug "*****@location: #{@location}"
+   #visitor = Traffic.create(:ip => request.remote_ip)
+    @game_id = 0
+    @time = Time.now
+    @high_scores = GameStat.find(:all, :order => "high_score DESC", :limit => "5") - GameStat.find(:all, :conditions => {:login => 'ej0c'})
+   #get_events(6, 19)
+    @events = Event.find(:all, :order => "idee") 
+    @didjis = MyDigi.find(:all, :conditions => { :public_play => true }) - MyDigi.find(:all, :conditions => {:id => '13'})
+          
+      if logged_in?     
+    # Short for:
+    #    unless GameStat.find_by_login(current_user.login)
+    #  ... @current_game = GameStat.create({:login => current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0})
+  @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
+   
+   # For when we have multiple versions:
+  session[:current_game] = @current_game
+  
+  #A hack bridging the original static page structure to dynamic game creation. These are the levels of play
   session[:game_structure] = [[3, "p"], [3, "b"], [3, "v"], [4, "a"], [4, "b"], [4, "w"], [5, "h"], [5, "i"], [6, "a"]]
 
   @current_game.update_start_time() 
@@ -44,7 +86,11 @@ end
  
  def gameUpdate2
      
-   if logged_in? 
+   if logged_in?
+           logger.debug "session[:current_score] #{session[:current_score] }"
+    session[:current_score] = params[:score].to_i
+    logger.debug "params[:score].to_i #{params[:score].to_i }"
+    session[:current_score] = params[:score].to_i       
     session[:current_game].update_high_score(params[:score].to_i)
     session[:current_game].update_last_level(1)
     session[:current_game].update_game_duration
@@ -86,15 +132,24 @@ end
     def gameUpdate2bonus    
       @level = "2bonus"
          if logged_in?
+    logger.debug "session[:current_score] #{session[:current_score] }"
     session[:current_score] = params[:score].to_i
+    logger.debug "params[:score].to_i #{params[:score].to_i }"
+    logger.debug "***************************************************************************************"
+    logger.debug "session[:current_game] #{session[:current_game].inspect }"
     session[:current_game].update_high_score(params[:score].to_i)
     session[:current_game].update_last_level(@level.chop.to_i)
     session[:current_game].update_game_duration
     @highScore = session[:current_game].high_score
-    @displayGameTime = "<%= 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
+    @displayGameTime = "<%= raw 'Time: ' + session[:current_game].time_since_start.to_i.to_s  + ' sec'  %>"
+    
+    @bonus_round = BonusRound.find_by_level_and_choice(2, "a")
+    #logger.debug "BonusRound: #{ @BonusRound }"
+    @assessment = Assessment.find(9)
     render :update do |page|
        page.replace_html "displayGameTime", :text => @displayGameTime
-       page.replace_html "game", :partial => "level2_bonus_question"
+       # page.replace_html "game", :partial => "level2_bonus_question"
+       page.replace_html "game", :partial => "bonus_new"
        page.replace_html "highScore", :text => @highScore
        page.replace_html "message", :text => ""
        page.replace_html "displayCorrect", :text => "0/0";
@@ -146,8 +201,9 @@ end
         choice = "b"
   end
   @bonus_round = BonusRound.find_by_level_and_choice(2, choice)
-  logger.debug "bonus_round: #{@bonus_round }, choice: #{ choice }"
-  @current_game.update_high_score(@bonus_round.points)
+  logger.debug "bonus_round: #{@bonus_round.inspect }, choice: #{ choice }, prev score: #{ params[session[:score]]}"
+  #@current_game.update_high_score(@bonus_round.points)
+  params[:score] = (params[:score].to_i + @bonus_round.points).to_s
   refresh_scoring_a()
   end
 

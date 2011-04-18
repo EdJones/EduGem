@@ -1,6 +1,7 @@
  <!---The explanation for all this is in episode 196 of Railscasts -->
+ <!-- ASSESSMENT_TYPES defined in config/initializers/assessment.rb -->
  
- <% form_for @assessment do |f| %>  
+ <%= form_for @assessment do |f| %>  
    <%= f.error_messages %>  
    <p>  
      <%= f.label :name %>  
@@ -11,8 +12,11 @@
 <br />
     <%= f.label :assessment_type %>
     <%= f.text_field :assessment_type %>
+    <br />
+    <%= f.label :assessment_type %>
+    <%= f.select :assessment_type, options_for_select(ASSESSMENT_TYPES) %>
   </p>
-   <% f.fields_for :questions do |builder| %>  
+   <%= f.fields_for :questions do |builder| %>  
      <%= render 'question_fields', :f => builder %>  
    <% end %>
   <p>

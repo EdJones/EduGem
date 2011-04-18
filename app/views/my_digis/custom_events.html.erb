@@ -1,0 +1,172 @@
+<div id="pagewidth2">
+<%= render(:partial => "shared/login_box2") %>
+  <%= render(:partial => "shared/header2") %>
+  <%= render(:partial => "search_box") %>
+<div style="height:4px"></div>
+
+  <b>Game:</b>
+  <%=h @my_digi.game_id %> <br />
+
+  <b>Author:</b>
+  <%=h @my_digi.author %> <br />
+  <b>Group:</b>
+  <%=h @my_digi.id %> <br />
+
+
+
+
+  <b>Theme:</b>
+
+  <div class="digitheme">
+
+  <%=h @my_digi.theme %>
+</div>
+<div >
+<div id="add_didgis">
+<h2>Events for my_digi #<%= @my_digi.id %> </h2>
+<% if @custom_events.length > 0 %>
+  <% form_tag(custom_event_remove_my_digi_path(@my_digi)) do %>
+  <table>
+  <tr>
+    <th><%= submit_tag "Remove?" %></th>
+    <th>Event</th>
+    <th>Id</th>
+    <th>Point<br />Value</th>
+    <th>Description</th>
+    <th>Year</th>
+    <th>Wikip url</th>
+    <th>Position</th>
+  </tr>
+  
+  <% for custom_event in @custom_events do %>
+  <tr>
+  	<td><%= check_box_tag "custom_events[]", custom_event.id %></td>
+    <td><%=h custom_event.title %></td>
+    <td><%=h custom_event.id %></td>
+    <td><%=h custom_event.pointValue %></td>
+    <td><%=h custom_event.description %></td>
+    <td><%=h custom_event.year %></td>
+    <td><%=h custom_event.wikip_url %></td>
+    <td><!--- h custom_event.sequences.first.position  --><%=h custom_event.didji_position(@my_digi) %></td>
+
+	    <td><%= button_to 'Edit', edit_custom_event_path(custom_event), {:method => :get }  %></td>
+  </tr>
+  <% end %>
+  </table>
+  <br />
+  <br />
+  <div class="digi_sort">
+  <p class="instructions">
+  Now put them in the order you wish game players to see them.
+  </p>
+  <br />
+  <ul id="custom_events">
+    <% for custom_event in @custom_events do %>
+      <% content_tag_for :li, custom_event do %>
+        <%=h custom_event.title %>&nbsp;
+        <%=h custom_event.year %>&nbsp;
+        <%=h custom_event.didji_position(@my_digi) %>
+        <!--- h custom_event.position(@my_digi) -->
+      <% end %>
+    <% end %>
+  </ul>
+<%= button_to 'Save New Order', {:action => 'custom_events', :id => @my_digi.id }, {:method => :get }  %>
+  </div>
+  
+  
+  <div align="center">
+  <br />
+  <% if @my_digi.custom_events.count > 4 then %>
+  <%= button_to("Preview this didgi?",  {:action => 'show', :id => @my_digi.id }, { :method => :get }) %>
+  <% end %>
+  </div>
+  <% end %>
+<% else %>
+<p>No events added yet</p>
+<% end %>
+</div>
+
+
+</div>
+
+<% if @used_by_games.count > 0 then %>
+
+<p>EventGroup <%=h @my_digi.id%> is part of these games:</p>
+
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Public</th>
+  </tr>
+
+<% @used_by_games.each do |my_game| %>
+  <tr>
+    <td><%=h my_game.game_id %></td>
+    <td><%=h my_game.title %></td>
+    <td><%=h my_game.author %></td>
+    <td><%=h my_game.public %></td>
+</tr>
+<% end %>
+</table>
+<% end %>
+
+
+
+
+
+
+
+
+<div id="add_new">
+<% if @my_digi.custom_events.count < 14 then %>
+<H2>Add New Events to this EventGroup</H2>
+<%= button_to 'New custom_event', new_custom_event_path %>
+<% form_tag(custom_event_add_my_digi_path(@my_digi)) do %>
+<table>
+  <tr>
+  <th>Id</th>
+  <th>Idee</th>
+  <th>Year</th>
+  <th>Add?</th>
+  <th>Event Title</th>
+
+  </tr>
+  
+  <% for custom_event in @my_digi.unused_custom_events do %>
+  <tr>
+  <td><%= custom_event.id %></td>
+  <td><%= custom_event.idee %></td>
+  <td width="80 px"><%= custom_event.year %></td>
+  <td><%= check_box_tag "custom_events[]", custom_event.id %></td>
+  <td><%=h custom_event.title %></td>
+
+  <td><%= %></td>
+
+  </tr>
+  <% end %>
+  </table>
+
+<%= submit_tag 'Include' %>
+<% end %>
+<% else%>
+<p>EventGroup <%=h @my_digi.id%> is full</p>
+
+<%= button_to("Attach this didji to a game?",  :controller => 'my_games', :action => 'index', :id => @my_digi.id ) %>
+<%= button_to_remote "Attach this Didgi to an existing game?", { :url => select_games_my_digi_path(@my_digi.id), :id => @my_digi.id}, { :method => :get } %>
+<!-- button_to_remote "Attach this Didgi to your new game?", {:url => my_digi_add_my_game_path(@my_game), :id => @my_game.id} --->
+<% end %>
+</div>
+<div id="select_games">
+
+</div>
+
+<%= link_to 'Edit', edit_my_digi_path(@my_digi) %> |
+<%= link_to 'Back', my_digis_path %>
+
+<%= sortable_element("custom_events", :url => { :controller => "my_digis", :action => "order", :id => @my_digi.id }  ) %>
+<div class="debug">
+<!--- h @my_digi.custom_events -->
+</div>
+</div>

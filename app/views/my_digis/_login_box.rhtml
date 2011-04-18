@@ -1,0 +1,25 @@
+<!--login box-->
+    <td id="login_cell">
+    	<div class="roundedcornr_box_160660">
+   <div class="roundedcornr_top_160660">
+   	<div>&nbsp;
+   	</div>
+	</div>
+      <div class="roundedcornr_content_160660">
+      <div id="login_message">
+
+    <% if logged_in? -%>
+    <%= "Welcome back!<br />Logged in as <strong>#{current_user.login}</strong>" %> <span class="logout"><%= link_to "Logout", :controller => 'sessions', :action => 'destroy' %></span><br />
+  &nbsp; <%= link_to "My&nbsp;Account", :controller => 'myAccount', :action => 'index' %>  
+       <% else -%>
+    <%= link_to "Login", :controller => 'account', :action => 'login' %>  <%= link_to "Signup", :controller => 'sessions', :action => 'signup' %>
+    <% end -%>
+
+        </div>      
+      </div>
+   <div class="roundedcornr_bottom_160660">
+   	<div>
+   	</div>
+	</div>
+</div>
+<!--end login box-->

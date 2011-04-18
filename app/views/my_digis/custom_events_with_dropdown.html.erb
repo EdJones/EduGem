@@ -1,0 +1,104 @@
+<div class="pagewidth2">
+
+  <%= render(:partial => "login_box") %>
+
+  <h2>MyDigi</h2>
+
+  <b>Game:</b>
+  <%=h @my_digi.game_id %>
+      <%= render(:partial => "search_box") %>
+  <b>Author:</b>
+  <%=h @my_digi.author %>
+  <b>Group:</b>
+  <%=h @my_digi.group %>
+
+
+
+
+  <b>Theme:</b>
+
+  <div class="digitheme">
+
+  <%=h @my_digi.theme %>
+</div>
+
+<h2>Events for my_digi #<%= @my_digi.id %> </h2>
+<% if @custom_events.length > 0 %>
+  <% form_tag(custom_event_remove_my_digi_path(@my_digi)) do %>
+  <table>
+  <tr>
+  <th>Event</th>
+  <th>Remove?</th>
+  </tr>
+  
+  <% for custom_event in @custom_events do %>
+  <tr>
+  <td><%=h custom_event.title %></td>
+  <td><%= check_box_tag "custom_events[]", custom_event.id %></td>
+  <td><%= %></td>
+  <td><%= custom_event.id %></td>
+  </tr>
+  <% end %>
+  </table>
+  <br />
+  <%= submit_tag "Remove Checked Events" %>
+  <% end %>
+<% else %>
+<p>No events added yet</p>
+<% end %>
+
+
+<H2>Add New Events to this EventGroup</H2>
+<% if @my_digi.custom_events.count < 15 then %>
+<% form_tag(custom_event_add_my_digi_path(@my_digi)) do %>
+<%= select_tag(:custom_event, options_from_collection_for_select(@my_digi.unused_custom_events, :id, :title)) %>
+<%= submit_tag 'Include' %>
+<% end %>
+<% else%>
+<p>EventGroup <%=h @my_digi.id%> is full</p>
+<% end %>
+
+
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Idee</th>
+    <th>Title</th>
+    <th>Pointvalue</th>
+    <th>Description</th>
+    <th>Year</th>
+    <th>Wikip url</th>
+  </tr>
+
+<% @my_digi.custom_events.each do |custom_event| %>
+  <tr>
+    <td><%=h custom_event.game_id %></td>
+    <td><%=h custom_event.idee %></td>
+    <td><%=h custom_event.title %></td>
+    <td><%=h custom_event.pointValue %></td>
+    <td><%=h custom_event.description %></td>
+    <td><%=h custom_event.year %></td>
+    <td><%=h custom_event.wikip_url %></td>
+    <td><%= link_to 'Edit', edit_custom_event_path(custom_event) %></td>
+
+  </tr>
+<% end %>
+</table>
+<%= link_to 'Edit', edit_my_digi_path(@my_digi) %> |
+<%= link_to 'Back', my_digis_path %>
+
+<div style="height:600px">
+<ul class="sortabledemo" id="firstlist" style="height:150px;width:260px;">
+<span class="style3">Your Events:</span><br />
+
+<!-- @events.length -->
+<% for custom_event in @my_digi.custom_events %>
+     <li class="green" id="firstlist_<%= custom_event.idee %>"><%= custom_event.title %><a href="<%= custom_event.wikip_url %>" title="Wikipedia"  rel="lyteframe" rev="width: 750px; height: 600px;"  >W</a></li>
+  <% end %>
+
+</ul>
+</div>
+<div class="debug">
+<%=h @my_digi.custom_events %>
+</div>
+</div>

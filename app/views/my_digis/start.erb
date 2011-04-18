@@ -1,0 +1,154 @@
+<% cache do %>
+<script type="text/javascript">
+//Create Javascript array from Rails master event list.
+var eventListBase = eval((<%= @eventsTimeBase.to_json %>));
+eventsStartIdee = <%= @eventsStartIdee %>
+eventsEndIdee = <%= @eventsEndIdee %>
+var eventListSub = eval((<%= @eventsSourceList.to_json %>));
+eventList = eventListBase.concat(eventListSub);
+lastPoints = 0
+accumPoints = 0;
+// Set game stats to reflect new game segment.
+last_correct=0;
+totalPoints = 0;
+
+</script>
+
+<div id="pagewidth">
+
+<!--begin page header-->  
+  <div id="header">  
+    <div class="style9">
+        <span align="left" class="challenge">MyDigi!! <br /></span>
+    </div>
+      <div id="lowerMast">
+          <div id="mastImage" width="300">
+              <img src="../images/bluej160d.png" align="left">
+      </div>
+        <div id="canteachers" class="challenge" align="right">
+       (Make your own Whendigi.)
+      </div>
+      <div class="brand" > <img id="brandImage" align="right"  src="../images/whendidji.gif"></div>
+    </div>
+  </div>
+<!--end page header-->
+<div id="container">
+<div id="scoring">
+     <table border="0" height="100px"><tr><td id="table" border="0" width="140" valign="top" >
+      <div class="scoringText" >Points:</div> <div id="displayPoints">0</div>
+      <div id="displayGameTime">&nbsp;</div>
+      </td>
+      <td width="410">
+      <div id="scoringCenter">
+      <div id="correctGuesses">Correct:
+      <div id="displayCorrect">  0</div>
+     </div>
+     <!--end correctGuesses-->
+    <div id="message">&nbsp;</div>
+    </div>
+    <!--end scoringCenter-->
+    </td>
+    <!--login box-->
+    <td id="login_cell">
+    	<div class="roundedcornr_box_160660">
+   <div class="roundedcornr_top_160660">
+   	<div>&nbsp;
+   	</div>
+	</div>
+      <div class="roundedcornr_content_160660">
+      <div id="login_message">
+      <% end %>
+    <% if logged_in? -%>
+    <%= "Welcome back!<br />Logged in as <strong>#{current_user.login}</strong>" %> <span class="logout"><%= link_to "Logout", :controller => 'sessions', :action => 'destroy' %></span><br />
+<%= "High score:  <span id='highScore'>#{@current_game.high_score}</span>" %>  &nbsp; <%= link_to "My&nbsp;Account", :controller => 'myAccount', :action => 'index' %>  
+       <% else -%>
+    <%= link_to "Login", :controller => 'account', :action => 'login' %>  <%= link_to "Signup", :controller => 'sessions', :action => 'signup' %>
+    <% end -%>
+
+        </div>      
+      </div>
+   <div class="roundedcornr_bottom_160660">
+   	<div>
+   	</div>
+	</div>
+</div><!--end login box-->
+    </td>
+    </tr></table>
+     </div>
+    <!--end scoring-->
+<!-- Game area -->
+<div id="game">
+<div id="playArea">
+<div id="popup">&nbsp;</div>
+
+    <%= render(:controller => "play", :partial => "search_box") %>
+<div id="sourceListDiv" style="float:left;">
+<div class="instructions">
+<h4>How many can you get?<BR />
+Click on the "W" if you need help.</h4>
+</div><br />
+<div id="message2">&nbsp;</div>
+<ul class="sortabledemo" id="firstlist" style="height:150px;width:260px;">
+<span class="style3">Drag Events from Here</span><br />
+<div id="levelUp" ><br />You got them All!! <%= link_to_remote "Go to Level 2", :url => { :action => "gameUpdate2" }, :with => "'score='+accumPoints" %> 
+</div>
+<!-- @events.length -->
+<% for event in @events %>
+     <li class="green" id="firstlist_<%= event.idee %>"><%= event.title %><a href="<%= event.wikip_url %>" title="Wikipedia"  rel="lyteframe" rev="width: 750px; height: 600px;"  >W</a></li>
+  <% end %>
+
+<div id="message4">If ur afraid, you can <%= link_to_remote "Go to Level 2", :url => { :action => "gameUpdate2" }, :with => "'score='+accumPoints" %></div>
+</ul>
+</div>
+<!--end sourceListDiv-->
+
+<div id="rightmain">
+  <div id="centercolfloatleft" style="float:left;">
+   <div id="centerlistdiv" style="float:left">
+     <ul class="sortabledemo" id="fourthlist" style="height:150px;width:250px;">
+       <span class="style3">Put them in Order Here </span>
+       <li class="orange style7" id="fourthlist_0">1000 B.C.</li>
+       <li class="orange style7" id="fourthlist_1">500 B.C.</li>
+       <li class="orange" id="fourthlist_2"><strong>1 AD </strong></li>
+       <li class="orange style6" id="fourthlist_3">500 AD</li>
+      <li class="orange style6" id="fourthlist_4">1000 AD</li>
+      <li class="orange style6" id="fourthlist_5">1500 AD</li>
+     </ul>
+   </div>
+  <!--end centerlistdiv-->
+</div>
+
+<!--end centercolfloatleft-->
+
+	
+</div><!--end  rightmain-->
+<div id="rightcolumn" >
+		<div id="ad1">
+
+		 </div>
+		  <!--end ad1-->
+
+ </div>
+  <!--end  rightcolumn-->
+
+<!--end  rightcolumn-->
+
+</div><!--end  playArea-->
+
+
+
+
+<script type="text/javascript">
+// <![CDATA[
+   Sortable.create("firstlist",
+     {dropOnEmpty:true,containment:["firstlist","fourthlist"],constraint:false, onChange: refresh});
+        Sortable.create("fourthlist",
+     {dropOnEmpty:true,handle:'handle',containment:["firstlist","fourthlist"],constraint:false, onUpdate: compare});
+// ]]>
+m4 = $('message');
+</script>
+
+</div><!--end game-->
+</div><!--end container-->
+</div><!--end pagewidth-->
+<!--end cache block-->

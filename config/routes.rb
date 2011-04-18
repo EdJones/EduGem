@@ -47,10 +47,6 @@ match 'play' => 'play#start'
   #   end
 
    resources :play do
-   #  member do
-   #  get 'short'
-    #   post 'toggle'
-   #  end
 
    collection do
       get 'start'
@@ -80,7 +76,20 @@ match 'play' => 'play#start'
   end
 
      resources :practice 
-     resources :my_digis
+     resources :my_games
+     resources :my_digis do
+        member do
+            post 'new'
+            get 'custom_events'
+            get 'custom_event_add'
+            get 'order'
+            post 'custom_event_add'
+            post 'custom_event_remove'
+            post 'make_public'
+            
+            end
+        end
+     resources :custom_events
      resources :myAccount
      resources :event_suggestions
      resources :admin

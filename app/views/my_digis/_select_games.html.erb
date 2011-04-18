@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Public</th>
+  </tr>
+the partial
+<% games.each do |my_game| %>
+  <tr>
+    <td><%=h my_game.game_id %></td>
+    <td><%=h my_game.title %></td>
+    <td><%=h my_game.author %></td>
+    <td><%=h my_game.public %></td>
+</tr>
+<% end %>
+</table>

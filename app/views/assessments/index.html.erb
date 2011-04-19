@@ -18,4 +18,20 @@
   <% end %>
 </table>
 
-<p><%= link_to "New Assessment", new_assessment_path %></p>
+<%= button_to "New Assessment", { :action => 'new' },  :remote => true %>
+
+
+<div id="add_assessment">
+<%= form_for @assessment do |f| %>  
+   <%= f.error_messages %>  
+   <p>  
+     <%= f.label :name %>  
+     <%= f.text_field :name %>  
+     <br />
+    <%= f.label :assessment_type %>
+    <%= f.select :assessment_type, options_for_select(ASSESSMENT_TYPES) %>
+    <%= f.submit "Create new assessment" %>
+  </p>
+ 
+   <% end %>
+</div>

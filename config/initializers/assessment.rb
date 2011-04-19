@@ -1,0 +1,1 @@
+ASSESSMENT_TYPES = ["Multiple choice", "Whendidji", "True-false", "Fill-in"]

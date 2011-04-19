@@ -1,6 +1,10 @@
 Whendidji3a::Application.routes.draw do
-  resources :assessments
-
+  resources :assessments do
+      member do
+                post 'new'
+            end
+        end
+        
   resources :mchoices
 
   resources :bonus_rounds

@@ -1,6 +1,7 @@
 class AssessmentsController < ApplicationController
   def index
     @assessments = Assessment.all
+    @assessment  = Assessment.new
   end
 
   def show
@@ -18,7 +19,7 @@ class AssessmentsController < ApplicationController
   def create
     @assessment = Assessment.new(params[:assessment])
     if @assessment.save
-      redirect_to @assessment, :notice => "Successfully created assessment."
+      redirect_to edit_assessment_path(@assessment), :notice => "Successfully created assessment."
     else
       render :action => 'new'
     end

@@ -1,0 +1,56 @@
+<div class="rbroundbox">
+	<div class="rbtop"><div></div></div>
+		<div class="rbcontent">
+
+
+<img src="http://www.whendidji.com/images/whendidji.gif" align="right">
+  <br />
+<p>&nbsp;</p>      
+<span class="welcome">Can you beat our time machine?</span>
+
+<p>Who came first--Jesus or Confucius? Are you sure???</p>
+
+<p>Did the French guillotine their queen before, or after, the Black Death? When did Torquemada do his torturing and Michelangelo his masterpieces?</P>
+<p>At Whendidji, we challenge you to learn what happened to good guys, the bad guys, and the rest of us low these past 5000 years!
+</p>
+<p>It's a game. </p>
+
+<p>Isn't it?</p>
+<br />
+<p><b>Welcome.</b><br />
+As we work out the bugs, we're inviting a limited number of ppl to tell us what to do!</p>
+
+For an invite, email <a href="mailto: edjones@openhistoryproject.org">Ed</a>. We'll set you up asap!
+<br />
+<br />
+<b>Log In</b><br />
+Thank you for helping test this app.
+<br />
+<span class="smallprint">By accessing this demonstration, you agree to keep confidential all aspects of this demo program, and agree to the terms of the   <%= link_to_remote "Confidentiality Agreement", :url => { :action => "display_agreement" }  %>.
+</span>
+<div id="agreement">&nbsp;</div>
+<% form_tag session_path do -%>
+<p><%= label_tag 'login' %><br />
+<%= text_field_tag 'login', @login %></p>
+
+<p><%= label_tag 'password' %><br/>
+<%= password_field_tag 'password', nil %></p>
+
+<!-- Uncomment this if you want this functionality
+<p><%= label_tag 'remember_me', 'Remember me' %>
+<%= check_box_tag 'remember_me', '1', @remember_me %></p>
+-->
+
+<p><%= submit_tag 'Log in' %></p>
+
+<% end -%>
+		</div>
+    <p>
+    <!-- 
+    <%= link_to "Sign up.", :controller => 'users', :action => 'new' %> 
+    -->
+    </p>
+    <!-- /rbcontent -->
+	<div class="rbbot"><div></div></div>
+</div><!-- /rbroundbox -->
+<img src="../images/whendidjidotcom_large.gif" align="right">

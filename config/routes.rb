@@ -24,6 +24,13 @@ match 'play' => 'play#start'
 
   resources :accounts
 
+  resources :users do
+      
+      collection do
+          get 'new'
+      end
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

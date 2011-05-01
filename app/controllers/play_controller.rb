@@ -1,7 +1,6 @@
 class PlayController < ApplicationController
   
 
-
 def index
   redirect_to :controller => 'play', :action => 'start'
 end
@@ -124,7 +123,7 @@ end
 
   def gameUpdate2b 
     @gameLevel = GameLevel.find_by_level_and_modifier(2, 'b')
-@next_Level = GameLevel.find_by_level_and_modifier(3, 'p')    
+@next_level = GameLevel.find_by_level_and_modifier(3, 'p')    
     refresh_game()
   end  
   

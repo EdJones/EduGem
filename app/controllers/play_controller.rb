@@ -20,19 +20,16 @@ end
     @events = Event.find(:all, :order => "idee") 
     @didjis = MyDigi.find(:all, :conditions => { :public_play => true }) - MyDigi.find(:all, :conditions => {:id => '13'})
           
-      if logged_in?     
-    # Short for:
-    #    unless GameStat.find_by_login(current_user.login)
-    #  ... @current_game = GameStat.create({:login => current_user.login, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0})
-  @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
+    if logged_in?     
+      @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
    
-   # For when we have multiple versions:
-  session[:current_game] = @current_game
+     # For when we have multiple versions:
+     session[:current_game] = @current_game
   
-  #A hack bridging the original static page structure to dynamic game creation. These are the levels of play
-  session[:game_structure] = [[3, "p"], [3, "b"], [3, "v"], [4, "a"], [4, "b"], [4, "w"], [5, "h"], [5, "i"], [6, "a"]]
+     #A hack bridging the original static page structure to dynamic game creation. These are the levels of play
+     session[:game_structure] = [[3, "p"], [3, "b"], [3, "v"], [4, "a"], [4, "b"], [4, "w"], [5, "h"], [5, "i"], [6, "a"]]
 
-  @current_game.update_start_time() 
+     @current_game.update_start_time() 
 
  # need to separate current game stats from current player's cum stats  OR Current_player line needs to be eeked out of views
   @current_player = GameStat.find_by_login(current_account.username)
@@ -88,14 +85,13 @@ end
    if logged_in?
            logger.debug "session[:current_score] #{session[:current_score] }"
     session[:current_score] = params[:score].to_i
-    logger.debug "params[:score].to_i #{params[:score].to_i }"
+    #logger.debug "params[:score].to_i #{params[:score].to_i }"
     session[:current_score] = params[:score].to_i       
     session[:current_game].update_high_score(params[:score].to_i)
     session[:current_game].update_last_level(1)
     session[:current_game].update_game_duration
     @level = 2
     respond_to do |format|
-      #format.html # index.html.erb
       format.js  {
         render :update do |page|
             page.replace_html 'highScore', :text => session[:current_game].high_score
@@ -104,7 +100,7 @@ end
             page.replace_html 'game', :partial => "level"+ @level.to_s
         end 
         }
-   end
+     end
     
     else 
       render :update do |page|
@@ -116,14 +112,14 @@ end
     
   def gameUpdate2a    
     @gameLevel = GameLevel.find_by_level_and_modifier(2, 'a')
-@next_level = GameLevel.find_by_level_and_modifier(2, 'b')
-@link_message = "Continue with Level" + @next_level.level.to_s + ": " + @next_level.tagline
+    @next_level = GameLevel.find_by_level_and_modifier(2, 'b')
+    @link_message = "Continue with Level" + @next_level.level.to_s + ": " + @next_level.tagline
     refresh_game()
   end
 
   def gameUpdate2b 
     @gameLevel = GameLevel.find_by_level_and_modifier(2, 'b')
-@next_level = GameLevel.find_by_level_and_modifier(3, 'p')    
+    @next_level = GameLevel.find_by_level_and_modifier(3, 'p')    
     refresh_game()
   end  
   
@@ -331,10 +327,7 @@ end
   private
   
   # Update game view for normal levels
- def refresh_game()
-    # @events = Event.find(:all, 
-      #    :order => "idee")
-      
+ def refresh_game()   
     @level = @gameLevel.level.to_s + @gameLevel.modifier
     @nextlevel = @next_level.level.to_s + @next_level.modifier
    if logged_in?
@@ -347,7 +340,7 @@ end
    else
      @highScore = " "
      @displayGameTime = " "
- end
+   end
 
 
     @level_tagline = @gameLevel.tagline
@@ -390,6 +383,8 @@ end
        page.replace_html "bonus_content", :partial => bonus_result
   end   
 end
+
+
   def refresh_scoring_a()
     session[:current_score] =  session[:current_score] + @bonus_round.points
     render :update do |page|
@@ -401,6 +396,7 @@ end
        page.replace_html "bonus_content", :partial => "bonus_result"
   end   
 end
+
 # For now, just pull them out of master list, 14 in a row. Later it will accept custom games.
 def get_events(first, last)
   @game_id = 0

@@ -27,7 +27,7 @@ Click on the "W" if you need help.</h4>
      <li class="green" id="firstlist_<%= event.idee %>"><%= event.title %>
      <%= link_to "W", event.wikip_url, { :popup => ['Wikipedia', 'height=600,width=700'] } %></li>
   <% end %>
-  <div id="message4">If ur afraid, you can <%= link_to "continue", { :action => "gameUpdate4b" }, :with => "'score='+accumPoints" %></div>
+  <div id="message4">If ur afraid, you can <%= link_to "continue", { :action => "level_up" }, :remote => 'true', :with => "'score='+accumPoints" %></div>
 </ul>
 </div>
 

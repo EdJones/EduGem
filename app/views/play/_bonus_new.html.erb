@@ -24,7 +24,7 @@
    <li> (<%= @bonus_round.points %> points) <%=  question.content %></li>  
    <ul>  
      <% for answer in question.answers %>  
-       <%= radio_button_tag( (":date_choice" + question.id), answer.id %>) <%=  answer.content %>  
+       <%= radio_button_tag( (":date_choice" + question.id.to_s ), answer.id) %> <%=  answer.content %>  
      <% end %>  
    </ul>  
    <% end %>  

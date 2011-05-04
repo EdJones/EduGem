@@ -72,25 +72,6 @@ ActiveRecord::Schema.define(:version => 20110426123906) do
     t.integer "custom_event_id", :null => false
   end
 
-  create_table "event_sequences", :force => true do |t|
-    t.integer  "E1"
-    t.integer  "E2"
-    t.integer  "E3"
-    t.integer  "E4"
-    t.integer  "E5"
-    t.integer  "E6"
-    t.integer  "E7"
-    t.integer  "E8"
-    t.integer  "E9"
-    t.integer  "E10"
-    t.integer  "E11"
-    t.integer  "E12"
-    t.integer  "E13"
-    t.integer  "E14"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "event_suggestions", :force => true do |t|
     t.string   "title"
     t.string   "user"

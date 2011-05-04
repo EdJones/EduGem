@@ -1,8 +1,8 @@
 <script type="text/javascript">
 //Create Javascript array from Rails master event list.
-var eventListBase = eval((<%= raw @eventsTimeBase.to_json %>));
+var eventListBase = eval((<%= raw @eventsTimeBase.to_json.html_safe %>));
 eventsStartIdee = <%= @eventsStartIdee %>
-var eventListSub = eval((<%= raw @eventsSourceList.to_json %>));
+var eventListSub = eval((<%= raw @eventsSourceList.to_json.html_safe %>));
 eventList = eventListBase.concat(eventListSub);
 
 // Set game stats to reflect new game segment.

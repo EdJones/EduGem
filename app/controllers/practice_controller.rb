@@ -1,6 +1,6 @@
 class PracticeController < ApplicationController
   
-  
+
     def index
     @my_digis = MyDigi.find(:all, :conditions => { :public_play => true })
 
@@ -14,7 +14,10 @@ class PracticeController < ApplicationController
   # GET /my_digis/1
   # GET /my_digis/1.xml
   def show
-    visitor = Traffic.create(:ip => request.remote_ip, :didji => (params[:id]))
+            if logged_in?   
+  @current_user = current_account.username
+  end
+    #visitor = Traffic.create(:ip => request.remote_ip, :didji => (params[:id]))
     #@my_digi.custom-events may not be sorted by idee. Should this be changed in model or here?
     @events = CustomEvent.find(:all, 
           :order => "idee")

@@ -166,7 +166,7 @@ end
   end
   
     def admin
-      if current_user.admin == true
+      if current_account.username.admin == true
     @my_games =  MyGame.find(:all)
     
     respond_to do |format|

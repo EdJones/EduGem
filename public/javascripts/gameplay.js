@@ -78,7 +78,8 @@ var iterator=  function(value, index) {
    if ( index != 0) {
    prevTargetEventId = ideeToId(targetArray[(index-1)]);
    testedTargetEventId = ideeToId(targetArray[index]);
-       if ( eventList[(testedTargetEventId)]["event"].year >= eventList[(prevTargetEventId)]["event"].year){ 
+     //alert(  eventList[0]["event"].year );
+       if ( eventList[(testedTargetEventId)]["custom_event"].year >= eventList[(prevTargetEventId)]["custom_event"].year){ 
 	   	numC = (numC + 1); 
 
 	   }
@@ -93,10 +94,10 @@ dispAttempt = (targetArray.length-6);
 
 d.innerHTML=dispCorrect+" / "+dispAttempt;
 //alert("totalPoints: " + totalPoints + "eventList[droppedEventId]["event"] : " + eventList[droppedEventId]["event"].pointValue );
-eventPoints = eventList[droppedEventId]["event"].pointValue;
+eventPoints = eventList[droppedEventId]["custom_event"].pointValue;
 //alert("totalPoints: " + totalPoints + "eventList[droppedEventId]["event"] : " + eventList[droppedEventId]["event"].pointValue );
 if (dispCorrect  < last_correct) {totalPoints = totalPoints - eventPoints; Sound.play("../sounds/sword.wav");m.innerHTML="Oops!";m2.innerHTML=(" ");flashMe("Oops!");};
-if (dispCorrect  > last_correct) {totalPoints = totalPoints + eventPoints; Sound.play("../sounds/4arrow.wav");m.innerHTML="&nbsp";m2.innerHTML=("Good! It was " + BCize (eventList[droppedEventId]["event"].year));flashMe("Good! It was " + BCize (eventList[droppedEventId]["event"].year));};
+if (dispCorrect  > last_correct) {totalPoints = totalPoints + eventPoints; Sound.play("../sounds/4arrow.wav");m.innerHTML="&nbsp";m2.innerHTML=("Good! It was " + BCize (eventList[droppedEventId]["custom_event"].year));flashMe("Good! It was " + BCize (eventList[droppedEventId]["custom_event"].year));};
 if (dispCorrect  == last_correct) {totalPoints = totalPoints- (eventPoints /10); Sound.play("../sounds/8squish.wav");m.innerHTML="Nope!";m2.innerHTML=(" ");};
 if (dispCorrect == 10) {Sound.play("../sounds/bike.wav");m4.style.display="block";};
 if (dispCorrect == 1) {Sound.play("../sounds/winner.wav");m.innerHTML="Sweet!!";l.style.display="block";m4.style.display="none";};

@@ -2,6 +2,8 @@
 
 <table>
   <tr>
+  <th>id</th> 
+  <th>&nbsp;</th> 
     <th>Game</th>
     <th>Level</th>
     <th>Sublevel</th>
@@ -18,6 +20,8 @@
 
 <% @game_levels.each do |game_level| %>
   <tr>
+    <td><%= game_level.id %></td>
+    <th>&nbsp;</th>
     <td><%= game_level.game_id %></td>
     <td><%= game_level.level %></td>
     <td><%= game_level.sublevel %></td>

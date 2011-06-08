@@ -5,8 +5,11 @@ Feature: (For Students) Many Flavored Assessments
    and prove that I learned.
 
   # 
-  Scenario: 
-    Then 
+  Scenario: Multinple Choice Correct Answer
+    Given A bonus or quiz item (multiple choice)
+    When The learner selects the correct answer
+    Then the learner is notified via view
+    And the scoring component is notified
 
   # 
   Scenario: Multiple Choice--Incorrect Answer
@@ -17,3 +20,10 @@ Feature: (For Students) Many Flavored Assessments
     And penalty (if any) is calculated
     And time taken to answer is noted
     And app scoring module is notified
+
+  # 
+  Scenario: Drag-and-drop placement/matching - correct drop
+    Given A map (geographic or otherwise)
+    When Learner drops item at its correct place on map
+    Then learner is notified via view
+    And the scoring component is notified

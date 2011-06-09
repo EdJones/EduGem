@@ -1,7 +1,5 @@
 <h2>EduGem</h2>
-<h4>Really? They still test with pencil and paper?</h4>
-
-EduGem doesn't suffer from small goals--but we'll get to that later. Small steps first.
+Really? They still test with pencil and paper?
 
 <h3>A BDD/TDD playpen</h3>
 For now, this is an exercise for a group of us learning to do <a href="http://pragprog.com/titles/achbd/the-rspec-book">BDD</a>--Behavior- (or Test-) Driven Development. 

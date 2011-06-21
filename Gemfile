@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '3.0.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -25,12 +25,33 @@ gem "acts_as_list"
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
+gem 'active_scaffold'
+gem "simple_form"  
+
+
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
+ group :development, :test do
+   gem 'cucumber'
+   gem 'cucumber-rails'
+ # to make webrat happy on windows
+   gem 'json', :platforms => :ruby
+   
+   #gem 'webrat'
+   #gem "mocha"  
+   #gem "rspec-rails"  
+   #gem "factory_girl_rails"
+   #gem "autotest"
+   gem 'configuration'
+   gem 'rspec-rails'  
+   gem 'capybara'
+   gem 'kelp'
+    gem 'pickle'  
+   gem 'database_cleaner'   
+   gem 'launchy'  
+     # Pretty printed test output
+  gem 'turn', :require => false
+ end
 gem "bcrypt-ruby", :require => "bcrypt"
-#I guess nifty:authentication added this? server complains
-#gem "mocha", :group => :test
+

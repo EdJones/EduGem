@@ -1,10 +1,13 @@
 <% cache do %>
 <script type="text/javascript">
-eventList = eval((<%= raw @events[0..19].to_json.html_safe %>));
+//Create Javascript array from Rails custom event list.
+var eventListBase = eval((<%= raw @eventsTimeBase.to_json.html_safe %>));
+eventsStartIdee = <%= @eventsStartIdee %>
+var eventListSub = eval((<%= raw @eventsSourceList.to_json.html_safe %>));
+eventList = eventListBase.concat(eventListSub);
 //alert(eventList[71]["event"].title);
-eventsStartIdee = 6;
 lastPoints=0;
-accumPoints = 0;
+totalPoints = 0;
 </script>
 <div id="pagewidth">
 
@@ -84,10 +87,11 @@ Click on the "W" if you need help.</h4>
 <div id="message2">&nbsp;</div>
 <ul class="sortabledemo" id="firstlist" style="height:150px;width:260px;">
 <span class="style3">Drag Events from Here</span><br />
-<div id="levelUp" ><br />You got them All!! <%= link_to "Go to Level 2",  { :action => "gameUpdate2" }, :remote => true, :with => "'score=' + accumPoints" %> 
+<div id="levelUp" ><br />You got them All!! <%= link_to "Go to Level 2",  { :action => "level", :id => "67" }, :remote => true, :with => "'score=' + accumPoints" %> 
 </div>
-<!-- @events.length -->
-<% for event in @events[6..19] %>
+<%= @eventsSourceList.length %>
+<%= @eventsSourceList.length %>
+<% for event in @eventsSourceList %>
      <li class="green" id="firstlist_<%= event.idee %>"><%= event.title %><%= link_to "W", event.wikip_url, { :popup => ['Wikipedia', 'height=600,width=700'] } %>
 </li>
   <% end %>

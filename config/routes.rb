@@ -5,9 +5,17 @@ Whendidji3a::Application.routes.draw do
             end
         end
         
+        resources :assessments
+        
   resources :mchoices
-
+  
   resources :bonus_rounds
+  
+  resources :traffics
+  
+  resources :users_admin
+  
+  resources :game_stat
 
   resources :game_levels
 
@@ -58,9 +66,14 @@ match 'play' => 'play#start'
   #   end
 
    resources :play do
+    
+    member do
 
+    end
+    
    collection do
       get 'start'
+    get 'level'
       get 'gameUpdate'
       get 'gameUpdate2'
       get 'gameUpdate2a'
@@ -87,7 +100,12 @@ match 'play' => 'play#start'
   end
 
      resources :practice 
-     resources :my_games
+     resources :my_games do
+         collection do
+             get 'admin'
+         end
+     end
+     
      resources :my_digis do
         member do
             post 'new'
@@ -99,11 +117,28 @@ match 'play' => 'play#start'
             post 'make_public'
             
             end
+        collection do
+             get 'admin'
+         end
         end
-     resources :custom_events
+     resources :custom_events do
+        collection do
+             get 'admin'
+         end
+     end
+     
      resources :myAccount
      resources :event_suggestions
-     resources :admin
+     resources :admin do
+         collection do
+             get 'index'
+             get 'admin'
+         end
+     end
+    resources :admin_custom
+    resources :admin_events
+    resources :admin_didjis
+     
   # Sample resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales

@@ -1,0 +1,27 @@
+<h1>Listing All my_games</h1>
+
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Public</th>
+  </tr>
+
+<% @my_games.each do |my_game| %>
+  <tr>
+    <td><%=h my_game.game_id %></td>
+    <td><%=h my_game.title %></td>
+    <td><%=h my_game.author %></td>
+    <td><%=h my_game.public %></td>
+    <td><%= link_to 'Show', my_game %></td>
+    <td><%= link_to 'Edit', edit_my_game_path(my_game) %></td>
+    <td><%= link_to 'Destroy', my_game, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+
+<%= link_to 'New my_game', new_my_game_path %>

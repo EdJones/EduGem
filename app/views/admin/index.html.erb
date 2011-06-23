@@ -1,0 +1,53 @@
+
+
+<div id="pagewidth2">
+<%= render(:partial => "shared/login_box2") %>
+  <%= render(:partial => "shared/header2") %>
+
+<div style="height:4px"></div>
+<div id="container">
+
+
+<div id="pagewidth">
+
+<h2>Admin this Thing, Ed!</h2>
+
+
+  <table><tr>
+  <td><%= link_to "Play!", :controller => 'play', :action => 'start' %>  &nbsp; </td>
+  <td><%= link_to "Practice", :controller => 'practice', :action => 'index' %>  &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp;</td>
+  </tr>
+        </table>
+      <table>
+  <tr>
+  <td><%= link_to "Traffic", :controller => 'traffics' %>  </td>
+  <td><%= link_to "Users", :controller => 'users_admin' %>  </td>
+  <td><%= link_to "Game Stats", :controller => 'game_stat' %>  </td>
+    </tr>
+          </table>
+      <table>
+  <tr>
+  <td> <%= link_to " Custom Games   ",  :controller => 'my_games', :action => 'admin' %></td>
+  <td> <%= link_to " Didgis    ",  :controller => 'my_digis', :action => 'admin' %></td>
+  <td> <%= link_to " Custom Events  ",  :controller => 'custom_events', :action => 'admin' %></td>
+      </tr>
+      </table>
+      <table>
+  <tr>
+  <td> <%= link_to " Custom Events Scaffold ",  :controller => 'admin_custom' %></td>
+  <td> <%= link_to " Events Scaffold ",  :controller => 'admin_events' %></td>
+  <td> <%= link_to " Didjis Scaffold ",  :controller => 'admin_didjis' %></td>
+  </tr></table>
+
+
+
+
+<br />
+<%= button_to 'Create a new Didgi', :action => :new %>
+
+
+</div>
+</div><!--end container-->
+</div><!--end pagewidth-->
+</div>
+<!--end cache block-->

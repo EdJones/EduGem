@@ -1,0 +1,46 @@
+<div class="pagewidth">
+  <%= render(:partial => 'shared/login_box2') %>
+  <%= render(:partial => "shared/header2") %>
+  
+  <div class="container">
+<div id="pagewidth">
+  <div class="content4">
+  <h2>My Custom Games</h2>
+<div class="guidance">Sadly for us, you think our game is not perfectly prefect perfection!
+<br /><br />Happily for you, No Worries! You should be able to make your own. And you can.<br />
+</div>
+<br />
+<div class="advisory">Hark: Support for creating full games is not quiiiiite done yet. You can <%= link_to "go ahead and create custom events",  :controller => 'custom_events', :action => 'index' %> and 
+<%= link_to "assemble individual didjis (levels)",  :controller => 'my_digis', :action => 'index' %>. 
+Just can't string them together yet.</div>
+<br />
+<%= button_to 'Create a New Didji', new_my_digi_path %>
+<br />
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Public</th>
+  </tr>
+
+<% @my_games.each do |my_game| %>
+  <tr>
+    <td><%=h my_game.game_id %></td>
+    <td><%=h my_game.title %></td>
+    <td><%=h my_game.author %></td>
+    <td><%=h my_game.public %></td>
+    <TD><%= button_to 'Add/Edit Digis', my_digis_my_game_path(my_game), :method => :get  %>
+    <td class="teenytext"><%= link_to 'Show', my_game %></td>
+    <td class="teenytext"><%= link_to 'Edit', edit_my_game_path(my_game) %></td>
+     </td>
+    <td class="teenytext"><%= link_to 'Destroy', my_game, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to 'Create a New Game', new_my_game_path %>
+<br />
+</div>
+</div>
+</div>
+</div>

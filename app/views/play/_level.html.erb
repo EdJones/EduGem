@@ -22,7 +22,7 @@ lastPoints=parseInt($('displayPoints').innerHTML);
 Click on the "W" if you need help.</h4>
  <div id="message2"></div>
  <ul class="sortabledemo" id="firstlist" style="height:150px;width:260px;">
- <div id="levelUp" ><br />Sweet! <%= link_to @link_message, { :action => "level_up" }, :remote => 'true', :with => "'score='+accumPoints" %> </div>
+ <div id="levelUp" ><br />Sweet! <%= link_to @link_message, { :action => "level", :id => @next_level.id }, :remote => 'true', :with => "'score='+accumPoints" %> </div>
 <% for event in @eventsSourceList %>
      <li class="green" id="firstlist_<%= event.idee %>"><%= event.title %>
      <%= link_to "W", event.wikip_url, { :popup => ['Wikipedia', 'height=600,width=700'] } %></li>

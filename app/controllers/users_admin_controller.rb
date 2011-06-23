@@ -3,7 +3,7 @@ class UsersAdminController < ApplicationController
   before_filter :login_required, :except => [:login]
   before_filter :authorized?, :except => [:login]
    
-  active_scaffold :user do |config|
+  active_scaffold :account do |config|
   config.label = "Users for WhenDidIt?"
   config.columns = [:login, :name, :email, :subscribed, :invitation_limit, :state, :admin, :password, :password_confirmation]
   config.list.per_page = 30

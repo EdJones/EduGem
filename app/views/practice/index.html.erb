@@ -1,0 +1,97 @@
+
+
+
+
+<div id="pagewidth">
+
+<%= render(:partial => "shared/header") %>
+<div style="height:4px">
+</div>
+<div id="pagewidth">
+
+<div id="container">
+<div id="scoring">
+     <table border="0" height="100px"><tr><td id="table" border="0" width="140" valign="top" >
+      <div class="scoringText" >Points:</div> <div id="displayPoints">0</div>
+      <div id="displayGameTime">&nbsp;</div>
+      </td>
+      <td width="410">
+      <div id="scoringCenter">
+      <div id="correctGuesses">Correct:
+      <div id="displayCorrect">  0</div>
+     </div>
+     <!--end correctGuesses-->
+    <div id="message">&nbsp;</div>
+    </div>
+    <!--end scoringCenter-->
+    </td>
+
+    </tr></table>
+     </div>
+    <!--end scoring-->
+<table>
+
+  <tr>
+    <th>Author</th>
+    <th>Id</th>
+	  <th>Theme</th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @my_digis.each do |my_digi| %>
+  <tr>
+    <td><%=h my_digi.author %></td>
+  	<td><%=h my_digi.id %></td>
+	  <td><%=h my_digi.theme %></td>
+    <td ><%= button_to 'Play', practice_path(my_digi), :method => :get  %></td>
+
+  </tr>
+<% end %>
+</table>
+
+
+</div>
+
+</div>
+
+
+
+<!-- Game area -->
+<div id="game">
+<div id="playArea">
+<div id="popup">&nbsp;</div>
+
+    <%= render(:partial => "shared/search_box") %>
+<div id="sourceListDiv" style="float:left;">
+<div class="instructions">
+
+
+<div id="message4">Pretty good! You got 10!</div>
+</ul>
+</div>
+<!--end sourceListDiv-->
+
+
+<div id="rightcolumn" >
+		<div id="ad1">
+
+		 </div>
+		  <!--end ad1-->
+
+ </div>
+  <!--end  rightcolumn-->
+
+<!--end  rightcolumn-->
+
+</div><!--end  playArea-->
+
+
+
+
+
+
+</div><!--end game-->
+</div><!--end container-->
+</div><!--end pagewidth-->
+</div>
+<!--end cache block-->

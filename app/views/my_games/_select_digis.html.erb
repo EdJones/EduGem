@@ -1,0 +1,57 @@
+<H2>Add Event Groups to this Game</H2>
+<% logger.info "********************select-didjis template********************" %>
+My own didgis:
+<% form_tag(my_digi_add_my_game_path(my_game)) do %>
+<table>
+  <tr>
+  <th>Id</th>
+  <th>Theme</th>
+
+  </tr>
+  <% logger.info "********************unused private didgis********************" %>
+  <% for my_digi in @my_game.unused_my_digis(current_account.username) do %>
+  <tr>
+  <td><%= my_digi.id %></td>
+    <td><%=h my_digi.theme %>
+  <td><%= check_box_tag "my_digis[]", my_digi.id %></td>
+
+</td>
+
+  <td></td>
+
+  </tr>
+  <% end %>
+  </table>
+  Public Didgis:
+<table>
+  <tr>
+  <th>Id</th>
+  <th>Theme</th>
+
+  </tr>
+  <% logger.info "********************unused public didgis********************" %>
+  <% for my_digi in @my_game.unused_public_my_digis(current_account.username) do %>
+  <tr>
+  <td><%= my_digi.id %></td>
+    <td><%=h my_digi.theme %>
+  <td><%= check_box_tag "my_digis[]", my_digi.id %></td>
+
+</td>
+
+  <td></td>
+
+  </tr>
+  <% end %>
+  </table>
+
+
+<%= submit_tag "include" %>
+<% end %>
+</div>
+
+
+
+</table>
+
+
+

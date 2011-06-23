@@ -9,8 +9,17 @@ def start
     @game_id = 0
     @time = Time.now
     @high_scores = GameStat.find(:all, :order => "high_score DESC", :limit => "5") - GameStat.find(:all, :conditions => {:login => 'ej0c'})
+       @events = CustomEvent.find(:all, 
+          :order => "idee")
    #get_events(6, 19)
-    @events = Event.find(:all, :order => "idee") 
+   @my_digi = MyDigi.find("64")
+       @eventsSourceList = @my_digi.custom_events
+    @eventsStartIdee = @my_digi.custom_events.first.idee
+        @eventsEndIdee = @my_digi.custom_events.last.idee
+        logger.debug "@my_digi.custom_events.length #{@my_digi.custom_events.length}"
+        logger.debug "@eventsSourceList.length #{@eventsSourceList.length}"
+        @eventsTimeBase = @events[0..5]
+
     @didjis = MyDigi.find(:all, :conditions => { :public_play => true }) - MyDigi.find(:all, :conditions => {:id => '13'})
           
     if logged_in?     
@@ -214,6 +223,9 @@ def get__custom_events(game, didji)
           end 
       end
 
+def content
+    
+end
 
 
 end

@@ -1,0 +1,34 @@
+<div class="pagewidth">
+  <%= render(:partial => 'shared/login_box2') %>
+  <%= render(:partial => "shared/header2") %>
+ 
+
+<div class="container">
+<div id="pagewidth">
+<h2>Start Creating Your Own Game</h2>
+
+<% form_for(@my_game) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <b><%= f.label :game_id %></b><br />
+    <%= f.hidden_field :game_id %>
+    <%= @my_game.game_id %>
+    <br />
+    <b><%= f.label :author %></b><br />
+    <%= @my_game.author %>
+    <%= f.hidden_field :author %>
+  </p>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', my_games_path %>
+</div>
+</div>

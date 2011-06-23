@@ -75,32 +75,40 @@ match 'play' => 'play#start'
       get 'start'
     get 'level'
       get 'gameUpdate'
-      get 'gameUpdate2'
-      get 'gameUpdate2a'
-      get 'gameUpdate2b'
-      get 'gameUpdate2bonus'
-      get 'gameUpdate3p'
-      get 'gameUpdate3b'
-      get 'gameUpdate3z'
-      get 'gameUpdate3v'
-      get 'gameUpdate3bonus'
-      get 'bonus2_result'
-      post 'bonus2_result'
-      get 'gameUpdate4a'
-      get 'gameUpdate4b'
-      get 'gameUpdate4w'
-      get 'gameUpdate5h'
-      get 'gameUpdate5i'
+    #  get 'gameUpdate2'
+    #  get 'gameUpdate2a'
+     # get 'gameUpdate2b'
+    #  get 'gameUpdate2bonus'
+    #  get 'gameUpdate3p'
+    #  get 'gameUpdate3b'
+    #  get 'gameUpdate3z'
+    #  get 'gameUpdate3v'
+    #  get 'gameUpdate3bonus'
+    #  get 'bonus2_result'
+    #  post 'bonus2_result'
+     # get 'gameUpdate4a'
+    #  get 'gameUpdate4b'
+    #  get 'gameUpdate4w'
+    #  get 'gameUpdate5h'
+     # get 'gameUpdate5i'
       get 'gameUpdateDone'
       get 'level_up'
       get 'bonus_result'
       post 'bonus_result'
-      get 'start100'
+    #  get 'start100'
     end
   end
 
      resources :practice 
      resources :my_games do
+         member do
+             get 'my_digis'
+             get 'select_digis'
+             post 'select_digis'
+             post 'my_digi_add'
+             post 'my_digi_remove'
+         end
+         
          collection do
              get 'admin'
          end
@@ -115,6 +123,8 @@ match 'play' => 'play#start'
             post 'custom_event_add'
             post 'custom_event_remove'
             post 'make_public'
+            get 'my_games'
+            post 'select_games'
             
             end
         collection do

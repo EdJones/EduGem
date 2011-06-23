@@ -1,16 +1,16 @@
 class MyGamesController < ApplicationController
   before_filter :login_required, :except => [:login]
   
-  
+
   # GET /my_games
-  def select_didjis
+  def select_digis
     logger.info "Processing select_didjis..." 
     @my_game = MyGame.find(params[:id])
     @my_digis = @my_game.my_digis
     render :update do |page|
-      page.replace_html "adddidjis", :partial => "select_didjis",  :locals => { :my_game => @my_game }
+      page.replace_html "adddidjis", :partial => "select_digis",  :locals => { :my_game => @my_game }
     end
-    logger.info "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ...done with select_didjis...QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ" 
+    logger.info "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ...done with select_digis...QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ" 
   end
   
 
@@ -73,7 +73,7 @@ end
   
   # GET /my_games.xml
   def index
-    @my_games =  MyGame.find(:all, :conditions => { :author => current_user.login })
+    @my_games =  MyGame.find(:all, :conditions => { :author => current_account.username })
     
     respond_to do |format|
       format.html # index.html.erb
@@ -156,7 +156,7 @@ end
     @my_game.destroy
 
     respond_to do |format|
-      unless current_user.admin
+      unless current_account.username.admin
        format.html { redirect_to(my_games_url) }
       else 
        format.html  { redirect_to(admin_my_games_path) }

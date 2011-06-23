@@ -1,0 +1,75 @@
+<div class="pagewidth2">
+  <%= render(:partial => "shared/login_box2") %>
+  <%= render(:partial => "shared/header2") %>
+
+
+
+  <h2>My Custom Game</h2>
+<div id = "instructions3">
+Use this form to builda game from collections of events ("Didgis").
+</div>
+  <b>Game:</b>
+  <%=h @my_game.game_id %>
+      <%= render(:partial => "search_box") %>
+  <br /><b>Author:</b>
+  <%=h @my_game.author %>
+
+
+  <br /><b>Title</b>
+  <div class="digitheme">
+  <%=h @my_game.title %>
+</div>
+<div class="container">
+<div id="pagewidth">
+<div class="advisory">Note: Support for creating full games is not quiiiiite done yet. You can <%= link_to "go ahead and create custom events",  :controller => 'custom_events', :action => 'index' %> and <%= link_to "assemble individual didjis (levels)",  :controller => 'my_digis', :action => 'index' %>. 
+Just can't string them together yet.</div>
+<h2>Event groups to be included in your game #<%= @my_game.game_id %> </h2>
+<% if @my_digis.length > 0 %>
+<div>
+  <% form_tag(my_digi_remove_my_game_path(@my_game)) do -%>
+  <table>
+  <tr>
+    <th><%= submit_tag "Remove?" %></th>
+      <th>ID</th>
+        <th></th>
+  <th>Event Group (didji)</th>
+  </tr>
+  
+
+  <% for my_digi in @my_digis do %>
+  <tr>
+  
+  <td><%= check_box_tag "my_digis[]", my_digi.id %></td>
+      <td><%= my_digi.id %></td>
+        <td><%= %></td>
+  <td><%= (link_to(my_digi.theme, my_digi)) %></td>
+  <td>
+  <% unless my_digi.public(current_account.username) %>
+  <%= button_to "Edit", { :controller => 'my_digis', :action => 'custom_events', :id => my_digi}, {:method => :get } %></td>
+  <% else %>
+  <%= "Public" %>
+  <% end %>
+  </tr>
+  <% end %>
+  <tr> <td> </td></tr>
+  </table>
+  <br />
+
+  <% end -%>
+
+<% else %>
+<p>No events added yet</p>
+<% end %>
+</div>
+
+<table><tr><td>
+<%= button_to "Create new event set", :controller => "my_digis", :action => "new" %></td>
+<td><%= button_to_remote "Add Existing Event Set", :url => select_digis_my_game_path(@my_game) %></td></tr></table>
+
+
+<div id="adddidjis"> &nbsp;</div>
+
+</div>
+</div>
+</div>
+</div>

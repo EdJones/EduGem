@@ -1,0 +1,41 @@
+<div class="pagewidth">
+  <%= render(:partial => 'shared/login_box2') %>
+  <%= render(:partial => "shared/header2") %>
+  
+  <div class="container">
+  <div class="content3">
+  <h2>All Custom Games</h2>
+<div class="guidance">Hi, Ed.
+<br /><br /><br />
+</div>
+<br />
+
+<%= button_to 'Create a New Game', new_my_game_path %>
+<br />
+<table>
+  <tr>
+    <th>Game</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Public</th>
+  </tr>
+
+<% @my_games.each do |my_game| %>
+  <tr>
+    <td><%=h my_game.game_id %></td>
+    <td><%=h my_game.title %></td>
+    <td><%=h my_game.author %></td>
+    <td><%=h my_game.public %></td>
+    <TD><%= button_to 'Add/Edit Digis', my_digis_my_game_path(my_game), :method => :get  %>
+    <td class="teenytext"><%= link_to 'Show', my_game %></td>
+    <td class="teenytext"><%= link_to 'Edit', edit_my_game_path(my_game) %></td>
+     </td>
+    <td class="teenytext"><%= link_to 'Destroy', my_game, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+</div>
+</div>
+</div>

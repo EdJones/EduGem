@@ -1,0 +1,31 @@
+<div class="pagewidth2">
+  <%= render(:partial => "shared/login_box2") %>
+  <%= render(:partial => "shared/header2") %>
+  
+  
+  
+  <p>
+  <b>Game:</b>
+  <%=h @my_game.game_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @my_game.title %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%=h @my_game.author %>
+</p>
+
+<p>
+  <b>Public:</b>
+  <%=h @my_game.public %>
+</p>
+
+
+<%= link_to 'Edit', edit_my_game_path(@my_game) %> |
+<%= link_to 'Back', my_games_path %>
+
+</div>

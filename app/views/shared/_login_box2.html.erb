@@ -1,0 +1,34 @@
+<!--login box-->
+    <td id="login_cell">
+    	<div class="roundedcornr_box_160660">
+   <div class="roundedcornr_top_160660">
+   	<div>&nbsp;
+   	</div>
+	</div>
+      <div class="roundedcornr_content_160660">
+      <div id="login_message">
+
+    <% if logged_in? -%>
+    <%= raw "Logged in as <strong>#{current_account.username}</strong>" %> <span class="logout"><%= link_to "Logout", :logout %></span>
+ 
+  <table><tr>
+  <td><%= link_to "Play!", :controller => 'play', :action => 'start' %>  &nbsp; </td>
+  <td><%= link_to "Practice", :controller => 'practice', :action => 'index' %>  &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp;</td>
+  <td><%= link_to "My&nbsp;Account", :controller => 'myAccount', :action => 'index' %>  </td>
+  <td> <%= link_to " My Custom Games   ",  :controller => 'my_games', :action => 'index' %></td>
+  <td> <%= link_to " My Didgis    ",  :controller => 'my_digis', :action => 'index' %></td>
+  <td> <%= link_to " My Custom Events  ",  :controller => 'custom_events', :action => 'index' %></td>
+  <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <% if current_account.username == 'ej0c' %>  <%= link_to "Admin", :controller => 'admin', :action => 'index' %> <% end %> </td>
+  </tr></table>
+       <% else -%>
+    <%= link_to "Login", :controller => 'account', :action => 'login' %>  <%= link_to "Signup", :controller => 'sessions', :action => 'signup' %>
+    <% end -%>
+
+        </div>      
+      </div>
+   <div class="roundedcornr_bottom_160660">
+   	<div>
+   	</div>
+	</div>
+</div>
+<!--end login box-->

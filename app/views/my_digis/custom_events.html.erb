@@ -25,7 +25,7 @@
 <div id="add_didgis">
 <h2>Events for my_digi #<%= @my_digi.id %> </h2>
 <% if @custom_events.length > 0 %>
-  <% form_tag(custom_event_remove_my_digi_path(@my_digi)) do %>
+  <%= form_tag(custom_event_remove_my_digi_path(@my_digi)) do %>
   <table>
   <tr>
     <th><%= submit_tag "Remove?" %></th>
@@ -62,7 +62,7 @@
   <br />
   <ul id="custom_events">
     <% for custom_event in @custom_events do %>
-      <% content_tag_for :li, custom_event do %>
+      <%= content_tag_for :li, custom_event do %>
         <%=h custom_event.title %>&nbsp;
         <%=h custom_event.year %>&nbsp;
         <%=h custom_event.didji_position(@my_digi) %>

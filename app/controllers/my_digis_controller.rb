@@ -20,10 +20,14 @@ class MyDigisController < ApplicationController
           :order => "idee")
     @my_digi = MyDigi.find(params[:id])
     @eventsSourceList = @my_digi.custom_events
+    logger.debug "@my_digi: #{@my_digi.inspect}"
+    logger.debug "@my_digi.sequences.last: #{@my_digi.sequences.inspect}"
+    logger.debug "@my_digi.custom_events: #{@my_digi.custom_events.inspect}"
+    
     @eventsStartIdee = @my_digi.custom_events.first.idee
         @eventsEndIdee = @my_digi.custom_events.last.idee
         @eventsTimeBase = @events[0..5]
-    logger.debug "@eventsSourceList #{@eventsSourceList.inspect}"
+    #logger.debug "@eventsSourceList #{@eventsSourceList.inspect}"
    #redirect_to :action => :custom_events,  :id => @my_digi
   end
 
@@ -44,11 +48,14 @@ class MyDigisController < ApplicationController
  # POST /my_digis/1/custom_event_add?custom_event_id=2
 #note: no real query string
 
-   def didji_position
-     my_digi_id = MyDigi.find(params[:id])
-     sequence = Sequence.find(:all, :conditions => {:my_digi_id =>  my_digi_id, :custom_event_id =>  id } )
-     sequence[0].position
-     end
+
+# in model?
+#  def didji_position
+#    my_digi_id = MyDigi.find(params[:id])
+#     sequence = Sequence.find(:all, :conditions => {:my_digi_id =>  my_digi_id, :custom_event_id =>  id } )
+#    logger.debug "sequence[0].position #{sequence[0].position}"
+#    sequence[0].position
+#    end
 
 
 
@@ -242,12 +249,18 @@ end
   # DELETE /my_digis/1.xml
   def destroy
     @my_digi = MyDigi.find(params[:id])
-    @my_digi.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(my_digis_url) }
-      format.xml  { head :ok }
-    end
+        if @my_digi.destroy
+        flash[:notice] = 'MyDigi was successfully created.'
+		#	    respond_to do |format|
+        #format.js
+      #format.html { redirect_to(users_url) }
+      #format.xml  { head :ok }
+    #end
+            @my_digis = MyDigi.find(:all, :conditions => { :author => current_account.username })
+            render :update do |page|
+				page.replace_html "didji_list", :partial => "list_my_didgis" 
+			end
+       end
   end
 
     def admin
@@ -286,3 +299,6 @@ def get_events(first, last)
         end
         end
         
+  def list_position
+    return custom_event.didji_position(@my_digi) + 5      
+    end

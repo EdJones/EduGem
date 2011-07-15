@@ -1,0 +1,74 @@
+<div id="pagewidth2">
+<%= render(:partial => "shared/login_box2") %>
+  <%= render(:partial => "shared/header2") %>
+  <%= render(:partial => "shared/search_box") %>
+<div style="height:4px"></div>
+<div id="container">
+<h2>Your Very Own custom_events</h2>
+
+<table>
+  <tr>
+
+    <th>Idee</th>
+    <th>Title</th>
+    <th>Pointvalue</th>
+    <th>Description</th>
+    <th>Year</th>
+    <th>Wikip url</th>
+    <th>Published?</th>
+  </tr>
+
+<% @custom_events.each do |custom_event| %>
+  <tr>
+
+    <td><%=h custom_event.idee %></td>
+    <td><%=h custom_event.title %></td>
+    <td><%=h custom_event.pointValue %></td>
+    <td><%=h custom_event.description %></td>
+    <td><%=h custom_event.year %></td>
+    <td><%=h custom_event.wikip_url %></td>
+    <td><%=h custom_event.public %></td>
+    <!-- link_to 'Show', custom_event -->
+    <td><%= button_to 'Modify Event', edit_custom_event_path(custom_event), :method => :get %></td>
+    <td class="teenytext"><%= link_to 'Delete', custom_event, :confirm => 'Are you sure?', :method => :delete %></td>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New custom_event', new_custom_event_path %>
+
+<h2>Other authors' published events.</h2>
+
+<table>
+  <tr>
+
+    <th>Idee</th>
+    <th>Title</th>
+    <th>Pointvalue</th>
+    <th>Description</th>
+    <th>Year</th>
+    <th>Wikip url</th>
+    <th>Author</th>
+  </tr>
+
+<% @public_events.each do |custom_event| %>
+  <tr>
+
+    <td><%=h custom_event.idee %></td>
+    <td><%=h custom_event.title %></td>
+    <td><%=h custom_event.pointValue %></td>
+    <td><%=h custom_event.description %></td>
+    <td><%=h custom_event.year %></td>
+    <td><%=h custom_event.wikip_url %></td>
+    <td><%=h custom_event.author%></td>
+    <!-- link_to 'Show', custom_event -->
+
+    </td>  </tr>
+<% end %>
+</table>
+
+
+</div>

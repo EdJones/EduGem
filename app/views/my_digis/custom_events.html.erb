@@ -70,7 +70,7 @@
       <% end %>
     <% end %>
   </ul>
-<%= button_to 'Save New Order', {:action => 'custom_events', :id => @my_digi.id }, {:method => :get }  %>
+<%= button_to 'Save New Order', {:action => 'order', :id => @my_digi.id }, {:method => :get }  %>
   </div>
   
   
@@ -100,7 +100,6 @@
     <th>Author</th>
     <th>Public</th>
   </tr>
-
 <% @used_by_games.each do |my_game| %>
   <tr>
     <td><%=h my_game.game_id %></td>
@@ -120,10 +119,11 @@
 
 
 <div id="add_new">
+<h2>How many events do you want? </h2>
 <% if @my_digi.custom_events.count < 14 then %>
 <H2>Add New Events to this EventGroup</H2>
-<%= button_to 'New custom_event', new_custom_event_path %>
-<% form_tag(custom_event_add_my_digi_path(@my_digi)) do %>
+<%= button_to 'New custom_event', new_custom_event_path, { :method => :get } %>
+<%= form_tag(custom_event_add_my_digi_path(@my_digi)) do %>
 <table>
   <tr>
   <th>Id</th>
@@ -131,7 +131,6 @@
   <th>Year</th>
   <th>Add?</th>
   <th>Event Title</th>
-
   </tr>
   
   <% for custom_event in @my_digi.unused_custom_events do %>

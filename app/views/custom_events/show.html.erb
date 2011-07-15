@@ -1,0 +1,38 @@
+<p>
+  <b>Game:</b>
+  <%=h @custom_event.game_id %>
+</p>
+
+<p>
+  <b>Idee:</b>
+  <%=h @custom_event.idee %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @custom_event.title %>
+</p>
+
+<p>
+  <b>Pointvalue:</b>
+  <%=h @custom_event.pointValue %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @custom_event.description %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%=h @custom_event.year %>
+</p>
+
+<p>
+  <b>Wikip url:</b>
+  <%=h @custom_event.wikip_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_custom_event_path(@custom_event) %> |
+<%= link_to 'Back', my_digis_path %>

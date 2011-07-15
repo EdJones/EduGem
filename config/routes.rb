@@ -132,6 +132,9 @@ match 'play' => 'play#start'
          end
         end
      resources :custom_events do
+		member do
+		put 'new'
+		end
         collection do
              get 'admin'
          end

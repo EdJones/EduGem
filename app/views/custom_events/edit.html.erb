@@ -1,0 +1,40 @@
+<h1>Editing custom_event</h1>
+
+<% form_for(@custom_event) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :game_id %><br />
+    <%= @custom_event.game_id %>
+  </p>
+  <p class="debug">
+    <%= f.label :idee %><br />
+    <%= @custom_event.idee %>
+  </p>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field (:title, :size => 80) %>
+  </p>
+  <p>
+    <%= f.label :pointValue %><br />
+    <%= f.text_field (:pointValue, :size => 10) %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :year %><br />
+    <%= f.text_field (:year, :size => 10) %>
+  </p>
+  <p>
+    <%= f.label :wikip_url %><br />
+    <%= f.text_field (:wikip_url, :size => 80) %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @custom_event %> |
+<%= link_to 'Back', custom_events_path %>

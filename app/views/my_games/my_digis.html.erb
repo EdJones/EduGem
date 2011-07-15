@@ -44,7 +44,7 @@ Just can't string them together yet.</div>
         <td><%= %></td>
   <td><%= (link_to(my_digi.theme, my_digi)) %></td>
   <td>
-  <% unless my_digi.public(current_account.username) %>
+  <% unless my_digi.public %>
   <%= button_to "Edit", { :controller => 'my_digis', :action => 'custom_events', :id => my_digi}, {:method => :get } %></td>
   <% else %>
   <%= "Public" %>

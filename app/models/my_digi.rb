@@ -5,6 +5,10 @@ has_and_belongs_to_many :my_games
 has_many :sequences, :order => "position"
 has_many :custom_events, :through => :sequences, :order => "sequences.position"
 
+scope :public, where('public', true )
+#scope :mine, joins(:account) & Accountroduct.cheap
+#scope :mine, where(:author => elf.account.username )
+
 def uses_event?(custom_event)
   self.custom_events.include?(custom_event)
   end
@@ -12,7 +16,6 @@ def uses_event?(custom_event)
 def unused_custom_events
   CustomEvent.find(:all) - self.custom_events
   end
-
 
 def used_by_game?(my_digi)
   game.my_digis.include?(my_digi)
@@ -28,12 +31,8 @@ def non_attached_games
   MyGame.find(:all, :conditions => {:author => self.author}) - self.my_games
 end
 
-def public(user)
-  # fake it until we implement in db
-  unless self.author == user
-  true
-  end
-end
+#def public(user)
+#end
 
 
 

@@ -1,0 +1,10 @@
+/* Eliminate the user by fading her out */
+/* $('#user_<%= @user.id %>').fadeOut(); */
+//alert("Ack!")
+/* $("#post_errors").hide(300); */
+/* $("#flash_notice").html("<%= escape_javascript(flash[:notice])%>"); */
+/* $("#flash_notice").show(300); */
+// $('list_users'.inner_html = <%= escape_javascript( render(:partial => "reload_users") ) %>")";
+
+n =$('list_users');
+n.innerHTML = "<%= escape_javascript(render :partial => "reload_users") %>";

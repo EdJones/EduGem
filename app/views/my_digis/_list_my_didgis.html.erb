@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <th>Author</th>
+    <th>Id</th>
+	  <th>Theme</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @my_digis.each do |my_digi| %>
+  <tr>
+    <td><%=h my_digi.author %></td>
+  	<td><%=h my_digi.id %></td>
+	  <td><%=h my_digi.theme %></td>
+    <td ><%= button_to 'Preview', my_digi_path(my_digi), :method => :get  %></td>
+    <td ><%= button_to 'Modify events', custom_events_my_digi_path(my_digi), :method => :get  %></td>
+    <td width="100">&nbsp;</td>
+    <td ><% if my_digi.public? %> <b>Public</b> <% else %><%= button_to 'Make Public', make_public_my_digi_path(my_digi), :confirm => 'Are you sure?'  %> <% end %></td>
+    <td class="teenytext"><%= link_to 'Rename', edit_my_digi_path(my_digi) %></td>
+    <td class="teenytext"><%= link_to 'Delete', my_digi, :confirm => 'Are you sure?', :method => :delete, :remote => true %></td>
+  </tr>
+<% end %>
+</table>

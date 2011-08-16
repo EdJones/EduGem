@@ -35,6 +35,9 @@ gem "simple_form"
  group :development, :test do
    gem 'cucumber'
    gem 'cucumber-rails'
+#to fix an issue with rails 3 and UTF-8 in params http://crimpycode.brennonbortz.com/?p=42   
+   gem "escape_utils" 
+   
  # to make webrat happy on windows
    gem 'json', :platforms => :ruby
    #gem 'hirb'

@@ -37,11 +37,11 @@ gem "simple_form"
    gem 'cucumber-rails'
  # to make webrat happy on windows
    gem 'json', :platforms => :ruby
-   
+   #gem 'hirb'
    #gem 'webrat'
    #gem "mocha"  
    #gem "rspec-rails"  
-   #gem "factory_girl_rails"
+   gem "factory_girl_rails"
    #gem "autotest"
    gem 'configuration'
    gem 'rspec-rails'  

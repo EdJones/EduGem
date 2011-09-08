@@ -47,7 +47,11 @@ gem "simple_form"
    gem "factory_girl_rails"
    #gem "autotest"
    gem 'configuration'
-   gem 'rspec-rails'  
+   gem 'rspec-rails'
+    gem 'guard-rspec'
+#support guard
+gem 'rb-fchange'
+gem 'rb-notifu'
    gem 'capybara'
    gem 'kelp'
     gem 'pickle'  

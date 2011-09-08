@@ -34,15 +34,4 @@ render_views
     end
   end
   
-#describe "View event details" do
-describe "GET my_digis/66/custom_events" do
-  it "Should show a table of events" do
-     #visit '/my_digis/66/custom_events'
-	 visit custom_events_my_digi_path('66')
-     page.should have_content('Events')
-	 #response.body.should =~ /Now put them in the order you wish game players to see them/m
-
-  end
-end
-
 end

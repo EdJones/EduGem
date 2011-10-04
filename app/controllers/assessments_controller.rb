@@ -1,4 +1,7 @@
 class AssessmentsController < ApplicationController
+
+ before_filter :login_required, :except => [:login]
+
   def index
     @assessments = Assessment.all
     @assessment  = Assessment.new

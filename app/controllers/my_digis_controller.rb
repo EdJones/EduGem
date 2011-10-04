@@ -1,9 +1,11 @@
 class MyDigisController < ApplicationController
  before_filter :login_required, :except => [:login]
+
+ 
   # GET /my_digis
   # GET /my_digis.xml
   def index
-    @my_digis = MyDigi.find(:all, :conditions => { :author => current_account.username })
+    @my_digis = MyDigi.where(:author => current_account.username )
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,8 +14,6 @@ class MyDigisController < ApplicationController
   end
   
 
-  # GET /my_digis/1
-  # GET /my_digis/1.xml
   def show
     #@my_digi.custom-events may not be sorted by idee. Should this be changed in model or here?
     @events = CustomEvent.find(:all, 
@@ -32,7 +32,6 @@ class MyDigisController < ApplicationController
   end
 
 
-# Get /my_digi/1/custom_events
   def custom_events
     @my_digi = MyDigi.find(params[:id])
     @custom_events = @my_digi.custom_events
@@ -41,9 +40,7 @@ class MyDigisController < ApplicationController
     #@my_game = MyGame.find(4)
     #------
     @used_by_games = @my_digi.my_games
-
-
-    end
+  end
     
  # POST /my_digis/1/custom_event_add?custom_event_id=2
 #note: no real query string
@@ -58,31 +55,17 @@ class MyDigisController < ApplicationController
 #    end
 
 
-
-
 def custom_event_add
   #Convert ids from routing to objects
   @my_digi = MyDigi.find(params[:id])
   @custom_event = CustomEvent.find(params[:custom_events])
-  #logger.debug "@custom_event #{@custom_event.first.inspect}"
+  #logger.debug "@custom_event: #{@custom_event.first.inspect}"
   unless @my_digi.uses_event?(@custom_event)
-  logger.info "++++++++++++++++++++++++++Completed line 52++++++++++++++++++++++++++++++++++++" 
-  #@custom_event.first.sequences.position 
-  logger.debug "@custom_event.first:  #{@custom_event.first.inspect}"
-  #@my_digi.sequences.first.position= 3
-  logger.info "++++++++++++++++++++++++++Completed line 56++++++++++++++++++++++++++++++++++++" 
-  logger.debug "@my_digi.sequences.last: #{@my_digi.sequences.last.inspect} and go on"
-  logger.info "++++++++++++++++++++++++++Completed line 58++++++++++++++++++++++++++++++++++++" 
-  #@my_digi.sequences.first.save
-  logger.info "++++++++++++++++++++++++++Completed line 60++++++++++++++++++++++++++++++++++++"
-  #@custom_event.first.sequences.first.position = 1
-    #add cusstom_event to list
- #a = @custom_event.first
- #logger.debug "a:  #{a.inspect}"
-    @my_digi.custom_events << @custom_event 
-  logger.info "++++++++++++++++++++++++++Completed line 65++++++++++++++++++++++++++++++++++++"
+    logger.debug "@my_digi.sequences.last: #{@my_digi.sequences.last.inspect} and go on"
+    logger.debug "@custom_event: #{@custom_event.inspect} and go on"
+      @my_digi.custom_events << @custom_event 
+      logger.debug "@my_digi.sequences.last: #{@my_digi.sequences.last.inspect}"
   #b = @my_digi.sequences.last
-  #logger.debug "b:  #{b.inspect}"
   #c = b.update({:position => 12})
     flash[:notice] = 'Event was successfully added'
   else
@@ -133,9 +116,12 @@ end
     
   def order
       logger.info "*************************Processing sort..."
-      my_digi_id = MyDigi.find(params[:id])
+      @my_digi = MyDigi.where(params[:id]).first
+	  logger.debug "@my_digi:  #{@my_digi}"
+	  logger.debug "params[:custom_events]:  #{params[:custom_events]}"
       params[:custom_events].each_with_index do |id, index|
-        sequence = Sequence.find(:all, :conditions => {:my_digi_id =>  my_digi_id, :custom_event_id =>  id } )
+        @sequence = Sequence.where(:my_digi_id =>  @my_digi.id, :custom_event_id =>  id  )
+		logger.debug "@sequence  #{@my_digi}"
         sequence[0].position = index + 1 
         logger.debug "sequence:  #{sequence.inspect}"
         #sequence.each do |s|
@@ -151,13 +137,13 @@ end
     def make_public
       @my_digi = MyDigi.find(params[:id])
       @my_digi.update_attribute('public', true)
-          respond_to do |format|
+      respond_to do |format|
       format.html { redirect_to(my_digis_url) }
       format.xml  { render :xml => @my_digis }
-    end
+		end
     end
     
-        def make_private
+     def make_private
       @my_digi = MyDigi.find(params[:id])
       @my_digi.update_attribute('public', false)
           respond_to do |format|
@@ -185,8 +171,6 @@ end
   end
   
   
-  # GET /my_digis/new
-  # GET /my_digis/new.xml
   def new
     @my_digi = MyDigi.new
     @my_digi.author = current_account.username
@@ -207,7 +191,6 @@ end
   end
 
   # POST /my_digis
-  # POST /my_digis.xml
   def create
     @my_digi = MyDigi.new(params[:my_digi])
     
@@ -229,7 +212,6 @@ end
   end
 
   # PUT /my_digis/1
-  # PUT /my_digis/1.xml
   def update
     @my_digi = MyDigi.find(params[:id])
 
@@ -246,7 +228,6 @@ end
   end
 
   # DELETE /my_digis/1
-  # DELETE /my_digis/1.xml
   def destroy
     @my_digi = MyDigi.find(params[:id])
         if @my_digi.destroy

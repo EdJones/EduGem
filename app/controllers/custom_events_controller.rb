@@ -20,7 +20,7 @@ def event_list
     #@events.each do |e| CustomEvent.create( :title => e.title, :idee => e.idee, :year => e.year, :description => e.description, :pointValue => e.pointValue, :wikip_url => e.wikip_url, :public => false )   CustomEvent.save end
       #CustomEvent.save
       
-         @custom_events = CustomEvent.find(:all, :conditions => {:author => current_user.login}, :order => 'idee')
+         @custom_events = CustomEvent.find(:all, :conditions => {:author => current_account.username}, :order => 'idee')
          @public_events = CustomEvent.find(:all, :conditions => {:public => true}) - @custom_events
     #if @custom_events.length == 0 
       #@custom_events = Event.find(:all)
@@ -65,7 +65,10 @@ def event_list
   def create
     @custom_event = CustomEvent.new(params[:custom_event])
   #@custom_event.idee = @custom_event.id + 1
-  @custom_event.author = current_user.login
+  logger.debug "@current_user: #{@current_user}" 
+  logger.debug "current_user: #{current_user}" 
+  logger.debug ":current_user: #{:current_user}" 
+  @custom_event.author = current_account.username
     respond_to do |format|
       if @custom_event.save
         flash[:notice] = 'CustomEvent was successfully created.'
@@ -85,12 +88,16 @@ def event_list
 
     respond_to do |format|
       if @custom_event.update_attributes(params[:custom_event])
-        flash[:notice] = 'CustomEvent was successfully updated.'
-        @custom_events = CustomEvent.find(:all)
-        @public_events = CustomEvent.find(:all, :conditions => {:public => true}) 
-        format.html { render :action => "index" }
-        format.xml  { head :ok }
+        logger.info "updated attribute"
+		flash[:notice] = 'CustomEvent was successfully updated.'
+		
+        #@custom_events = CustomEvent.find(:all)
+        #@public_events = CustomEvent.find(:all, :conditions => {:public => true}) 
+        #format.html { render :action => "index" }
+        format.html { redirect_to( :action => 'index') }
+		format.xml  { head :ok }
       else
+		logger.info "failed to update attribute"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @custom_event.errors, :status => :unprocessable_entity }
       end

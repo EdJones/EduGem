@@ -18,9 +18,11 @@ acts_as_list :scope => :my_digi
   end
 
    def didji_position(my_digi_id)
+    logger.info "entering custom_event.digi_position"
      #my_digi_id = MyDigi.find(params[:id])
      #sequence = Sequence.find(:all, :conditions => {:my_digi_id =>  my_digi_id, :custom_event_id =>  id } )
      sequence = Sequence.find(:all, :conditions => {:my_digi_id =>  my_digi_id, :custom_event_id => self.id } )
+     logger.debug "sequence  #{sequence.inspect}"
      sequence[0].position
      end
 #def position(digi)

@@ -16,12 +16,12 @@ class Sequence < ActiveRecord::Base
 #    self.position = count +1
 #  end
 
-  #def initialize
-    logger.info "++++++++++++++++++++++++++Sequence.initialize line 9++++++++++++++++++++++++++++++++++++"
+  #def initialize(args = nil)
+    logger.info "++++++++++++++++++++++++++Sequence.after_initialize line 20++++++++++++++++++++++++++++++++++++"
     #position = Sequence.last.position
     #logger.debug "position  #{position}"
-    #self.position = position +1 
-
+    #Sequence.last.update_attributes(:position =>  Sequence.last.length )
+#@position = '14'
   #end
   
 end

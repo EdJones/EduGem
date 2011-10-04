@@ -1,6 +1,15 @@
 class AccountsController < ApplicationController
   before_filter :login_required, :except => [:new, :create]
+  before_filter :authorized?, :except => [:new, :create, :edit, :update]
+  
+active_scaffold :account do |conf|
+    conf.label = "Users for WhenDidIt?"
+	conf.columns = [:username, :email, :created_at, :admin, :teacher, :author]
+	conf.list.per_page = 30
+  end
+  
 
+  
   def new
     @account = Account.new
   end
@@ -27,4 +36,17 @@ class AccountsController < ApplicationController
       render :action => 'edit'
     end
   end
+  
+  def unauthorized
+  redirect_to root_url, :notice => "You must be an admin to access this page."
+  
+  end
+  private
+    #  only allow admin to access
+   
+  def authorized?
+   unless logged_in? &&  current_account.admin == true
+   render :action => 'unauthorized'
+   end
+ end
 end

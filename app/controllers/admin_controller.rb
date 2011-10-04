@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
    # :before_filter :admin
-   #before_filter :login_required, :except => [:login]
-   #before_filter :authorized?, :except => [:login]
+   before_filter :login_required, :except => [:login]
+   before_filter :authorized?, :except => [:login]
    
 
 
@@ -25,6 +25,6 @@ end
 private
     #  only allow Ed to access
    def authorized?
-    logged_in? &&  current_user.login == "ej0c"
+    logged_in? &&  current_account.admin == true
  end
 end

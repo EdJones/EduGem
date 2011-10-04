@@ -1,4 +1,7 @@
 class BonusRoundsController < ApplicationController
+
+ before_filter :login_required, :except => [:login]
+
   # GET /bonus_rounds
   # GET /bonus_rounds.xml
   def index

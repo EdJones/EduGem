@@ -14,6 +14,6 @@ end
 private
     #  only allow Ed to access
    def authorized?
-    logged_in? &&  current_user.login == "ej0c"
+    logged_in? &&  current_account.username == "ej0c"
  end
 end

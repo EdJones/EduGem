@@ -98,7 +98,7 @@ end
     
     @my_game = MyGame.new
     @my_game.game_id = MyGame.last.id + 1
-    @my_game.author = current_user.login
+    @my_game.author = current_account.username
 
     respond_to do |format|
       format.html # new.html.erb

@@ -3,7 +3,9 @@ class PracticeController < ApplicationController
 
     def index
     @my_digis = MyDigi.find(:all, :conditions => { :public_play => true })
-
+if logged_in?     
+      @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
+   end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @my_digis }
@@ -34,5 +36,9 @@ class PracticeController < ApplicationController
    @possible_score = 0
    @eventsSourceList.each do |e| @possible_score = @possible_score + e.pointValue end 
      logger.debug "@possible_score #{@possible_score}"
+	 
+	 if logged_in?     
+      @current_game = GameStat.find_or_create_by_login(:login =>current_account.username, :game_id => @game_id, :last_level => 0, :game_duration => 0, :high_score => 0)
+   end
   end
 end

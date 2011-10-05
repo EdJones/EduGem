@@ -37,7 +37,8 @@ gem "simple_form"
    gem 'cucumber-rails'
 #to fix an issue with rails 3 and UTF-8 in params http://crimpycode.brennonbortz.com/?p=42   
    gem "escape_utils" 
-   
+
+   gem 'yaml_db'
  # to make webrat happy on windows
    gem 'json', :platforms => :ruby
    #gem 'hirb'
@@ -52,6 +53,7 @@ gem "simple_form"
 #support guard
 gem 'rb-fchange'
 gem 'rb-notifu'
+  gem "spork", "> 0.9.0.rc" 
    gem 'capybara'
    gem 'kelp'
     gem 'pickle'  
@@ -60,5 +62,8 @@ gem 'rb-notifu'
      # Pretty printed test output
   gem 'turn', :require => false
  end
-gem "bcrypt-ruby", :require => "bcrypt"
+gem "bcrypt-ruby", "< 3.0.1", :require => "bcrypt"
+
+# >rails 3.1
+# gem 'prototype-rails'
 

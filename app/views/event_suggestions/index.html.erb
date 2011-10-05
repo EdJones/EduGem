@@ -1,0 +1,24 @@
+<h1>Listing event_suggestions</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>User</th>
+    <th>Comment</th>
+  </tr>
+
+<% @event_suggestions.each do |event_suggestion| %>
+  <tr>
+    <td><%=h event_suggestion.title %></td>
+    <td><%=h event_suggestion.user %></td>
+    <td><%=h event_suggestion.comment %></td>
+    <td><%= link_to 'Show', event_suggestion %></td>
+    <td><%= link_to 'Edit', edit_event_suggestion_path(event_suggestion) %></td>
+    <td><%= link_to 'Destroy', event_suggestion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New event_suggestion', new_event_suggestion_path %>

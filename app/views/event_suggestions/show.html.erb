@@ -1,0 +1,18 @@
+<p>
+  <b>Title:</b>
+  <%=h @event_suggestion.title %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @event_suggestion.user %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%=h @event_suggestion.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_suggestion_path(@event_suggestion) %> |
+<%= link_to 'Back', event_suggestions_path %>

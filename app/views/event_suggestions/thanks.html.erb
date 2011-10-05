@@ -1,0 +1,13 @@
+<h1>Thanks for submitting an event!</h1>
+
+
+
+  <p><B>You suggested: </b>
+<%= @response.title %>
+</p>
+<p><b>With comment:</b>
+<%= @response.comment %>
+</p>
+
+
+<%= link_to 'Back', :controller => 'play',  :action => 'start' %>

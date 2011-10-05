@@ -8,11 +8,12 @@
       <div id="login_message">
 
     <% if logged_in? -%>
-    <%= "Welcome back!<br />Logged in as <strong>#{current_account.username}</strong>" %> <span class="logout"><%= link_to "Logout", :logout %></span><br />
-  &nbsp; <%= link_to "My&nbsp;Account", :controller => 'myAccount', :action => 'index' %> 
-&nbsp; <% if current_account.username == 'ej0c' %>  <%= link_to "Admin", :controller => 'admin', :action => 'index' %> <% end %>
+    <%= raw "Welcome back!<br />Logged in as <strong>#{current_account.username}</strong>" %> <span class="logout"><%= link_to "Logout", :logout %>
+    &nbsp; &nbsp; &nbsp; <% if current_account.username == 'ej0c' %>  <%= link_to "Admin", :controller => 'admin', :action => 'index' %> <% end %></span><br />
+<%= raw "High score:  <span id='highScore'>#{@current_game.high_score}</span>" %>  &nbsp; <%= link_to "My Account", :controller => 'myAccount', :action => 'index' %>  
+       
        <% else -%>
-    <%= link_to "Login", :controller => 'session', :action => 'new' %>  <%= link_to "Signup", :controller => 'users', :action => 'new' %>
+    <%= link_to "Login", :controller => 'user_sessions', :action => 'new' %>  <%= link_to "Signup", :controller => 'accounts', :action => 'new' %>
     <% end -%>
 
         </div>      

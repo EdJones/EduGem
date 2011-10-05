@@ -5,6 +5,7 @@ Factory.define :account do |f|
   f.password_confirmation {|u| u.password }
 end
 
+
 Factory.define :game_stat do |f|
   f.sequence(:login) { |n| "ej1c" }
   f.sequence(:game_id) { |n| "1" }

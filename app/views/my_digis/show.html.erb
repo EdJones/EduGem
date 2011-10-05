@@ -45,8 +45,8 @@ accumPoints = 0;
       <div id="scoringCenter">
       <div id="correctGuesses">Correct:
       <div id="displayCorrect">  0</div>
-     </div>
-     <!--end correctGuesses-->
+     </div>  <!--end correctGuesses-->
+     
     <div id="message">&nbsp;</div>
     </div>
     <!--end scoringCenter-->
@@ -54,7 +54,7 @@ accumPoints = 0;
 
     </tr></table>
      </div>
-    <!--end scoring-->
+<!--end scoring-->
 <!-- Game area -->
 <div id="game">
 <div id="playArea">
@@ -73,9 +73,12 @@ Click on the "W" if you need help.</h4>
 </div>
 <!-- @events.length -->
 <!-- custom_event.sequences.first.position -->
-
+<% logger.debug "@eventsSourceList: #{@eventsSourceList}" %>
 <% for custom_event in @eventsSourceList %>
-     <li class=<% unless custom_event.scale %>"green" <% else %>"orange style7"<% end %>id="firstlist_<%= (custom_event.didji_position(@my_digi) + 5 )%>"><%= custom_event.title %><a href="<%= custom_event.wikip_url %>" title="Wikipedia"  rel="lyteframe" rev="width: 750px; height: 600px;"  >W</a></li>
+<% logger.info "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" %>
+<% logger.debug "custom_event: #{custom_event.inspect}" %>
+	<% logger.debug "@my_digi: #{@my_digi.inspect}" %>
+    <li class=<% unless custom_event.scale %>"green" <% else %>"orange style7"<% end %>id="firstlist_<%= (custom_event.didji_position(@my_digi) + 5 )%>"><%= custom_event.title %><a href="<%= custom_event.wikip_url %>" title="Wikipedia"  rel="lyteframe" rev="width: 750px; height: 600px;"  >W</a></li>
   <% end %>
 
 <div id="message4">Pretty good! You got 10!</div>
@@ -110,9 +113,6 @@ Click on the "W" if you need help.</h4>
 
  </div>
   <!--end  rightcolumn-->
-
-<!--end  rightcolumn-->
-
 </div><!--end  playArea-->
 
 

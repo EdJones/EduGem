@@ -1,4 +1,8 @@
 Whendidji3a::Application.routes.draw do
+  resources :accounts do as_routes end
+
+  resources :users do as_routes end
+
   resources :assessments do
       member do
                 post 'new'
@@ -18,6 +22,8 @@ Whendidji3a::Application.routes.draw do
   resources :game_stat
 
   resources :game_levels
+  
+  resources :invites
 
   match 'account/edit' => 'accounts#edit', :as => :edit_current_account
 
@@ -30,7 +36,12 @@ Whendidji3a::Application.routes.draw do
 match 'play' => 'play#start'
   resources :user_sessions
 
-  resources :accounts
+  resources :accounts do
+    collection do
+		get 'subscribe'
+		end
+	end
+		
 
   resources :users do
       
@@ -99,7 +110,11 @@ match 'play' => 'play#start'
     end
   end
 
-     resources :practice 
+     resources :practice do
+		member do
+			get 'show'
+		end
+	 end
      resources :my_games do
          member do
              get 'my_digis'
@@ -133,11 +148,12 @@ match 'play' => 'play#start'
         end
      resources :custom_events do
 		member do
-		put 'new'
+			post 'new'
+			post 'update'
 		end
         collection do
-             get 'admin'
-         end
+            get 'admin'
+        end
      end
      
      resources :myAccount

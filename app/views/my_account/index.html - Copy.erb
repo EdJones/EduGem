@@ -1,0 +1,145 @@
+<div class="pagewidth">
+  <%= render(:partial => "shared/login_box2") %>
+  <%= render(:partial => "shared/header3") %>
+
+
+  <div class="rbroundbox2">  
+<div class="roundedcornr_box_652827">
+   <div class="roundedcornr_top_652827">
+   	<div></div>
+   	</div>
+<div class="home"><%= link_to "Return to Game", :controller => 'play', :action => 'start' %> &nbsp; &nbsp;
+	
+</div>
+      <div class="roundedcornr_content_652827">
+
+<span class="welcome">My Account</span>
+
+
+<% if logged_in? -%>
+    <%= "Logged in as <strong>#{current_user.login}</strong>" %> <span class="logout"><%= link_to "Logout", :controller => 'sessions', :action => 'destroy' %></span><br />
+
+<div class = "subscribed">
+<% if current_user.subscribed? -%>
+<%= "You are Subscribed!" %>
+<% end -%>
+</div>
+<br />
+<h4>My Played Games</h4>
+<%= "High score:  <span id='highScore'>#{@current_game.high_score}</span>" %>  <br />
+<%= "Highest level:  <span id='highScore'>#{@current_game.last_level}</span>" %><br />
+<%= "Last Game Time:  <span id='highScore'>#{@current_game.game_duration}</span>" %>
+       <% else -%>
+    <%= link_to "Login", :controller => 'account', :action => 'login' %>  <%= link_to "Signup", :controller => 'sessions', :action => 'signup' %>
+    <% end -%>
+    		
+
+      </div>
+<div class="roundedcornr_content_652827a">
+<br />
+
+<div id = "blue">
+<br />
+<div id="bluebox" >
+<h4>Share the Joy!</h4>
+<p>As we work the bugs, we're inviting a limited number of ppl to tell us what to do!</p>
+<p>You can send up to <%= current_user.invitation_limit %> invitations to colleagues and friends to try things out and set us straight.</p>
+<% unless current_user.subscribed? -%>
+<div class="moreinvites"><%= link_to "Need more than 5 invites?", :controller => 'my_account', :action => 'subscribe' %> </div>
+<% end -%>
+
+<% form_for(@invite) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :from %> <br /><b><%=current_user.email%></b>
+  </p>
+  <p> 
+    <%= f.label :to %><br />
+    <%= f.text_field :to %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+<br />
+<div id="response"></div>
+<h4>Your invites</h4>
+
+<table width="50%">
+  <tr align="left" style="font-size: small">
+    <th>Sent</th>
+    <th>To</th>
+  </tr>
+
+<% @invites.each do |invite| %>
+  <tr style="font-size: small">
+    <td><%=h invite.created_at.strftime("%b %d, %Y") %></td>
+    <td><%=h invite.to %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to 'Back', invites_path %>
+      </div>
+      
+      <div id="bluebox-right">
+     <div id="suggestion2">
+	<h4>Make Whendidji Smarter.</h4>
+<b>Oh, my! You think we missed something? Surely you jest.</b>
+OK, we'll byte: What event do <i>u</i> think should b here?<Br />
+For example, "Newton gets bonked on the head with an Apple. Gravity knocks"
+<% form_for(@event_suggestion) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field(:title , :size => 50) %>
+  </p>
+  <p>
+    <%= f.label :comment %><br />
+    <%= f.text_area(:comment, :size => "40x4" ) %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+<br />
+<h4>Your Suggested Events</h4>
+
+<table width="100%">
+  <tr style="font-size: small">
+    <th align="left" >Title</th>
+    <th align="left" >Comment</th>
+  </tr>
+
+<% @event_suggestions.each do |event_suggestion| %>
+  <tr style="font-size: small">
+    <td><%=h event_suggestion.title %></td>
+    <td><%=h event_suggestion.comment %></td>
+    <td><%= link_to 'Edit', edit_event_suggestion_path(event_suggestion) %></td>
+    <td><%= link_to 'Delete', event_suggestion, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+      </div>
+      </div>
+	  </div>
+   <div class="roundedcornr_bottom_652827"><div></div></div>
+</div>
+</div><!-- /rbroundbox -->
+</div>
+</div>
+</div>
+  <div class="rbroundbox2">  
+<div class="roundedcornr_box_866195">
+   <div class="roundedcornr_top_652827"><div></div></div>
+      <div class="roundedcornr_content_652827">
+
+   <div class="roundedcornr_bottom_652827"><div>
+   	
+   </div>
+   </div>
+</div>
+</div>
+</div><!-- /rbroundbox -->
+<%= link_to image_tag("whendidjidotcom_large.gif", :border=>0),  :controller => 'play', :action => 'start' %>

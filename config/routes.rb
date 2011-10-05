@@ -1,29 +1,5 @@
 Whendidji3a::Application.routes.draw do
-  resources :accounts do as_routes end
 
-  resources :users do as_routes end
-
-  resources :assessments do
-      member do
-                post 'new'
-            end
-        end
-        
-        resources :assessments
-        
-  resources :mchoices
-  
-  resources :bonus_rounds
-  
-  resources :traffics
-  
-  resources :users_admin
-  
-  resources :game_stat
-
-  resources :game_levels
-  
-  resources :invites
 
   match 'account/edit' => 'accounts#edit', :as => :edit_current_account
 
@@ -33,22 +9,8 @@ Whendidji3a::Application.routes.draw do
 
   match 'login' => 'user_sessions#new', :as => :login
 
-match 'play' => 'play#start'
-  resources :user_sessions
+  match 'play' => 'play#start'
 
-  resources :accounts do
-    collection do
-		get 'subscribe'
-		end
-	end
-		
-
-  resources :users do
-      
-      collection do
-          get 'new'
-      end
-  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -64,49 +26,21 @@ match 'play' => 'play#start'
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
 
    resources :play do
     
-    member do
+		member do
 
-    end
+		end
     
    collection do
       get 'start'
-    get 'level'
+      get 'level'
       get 'gameUpdate'
-    #  get 'gameUpdate2'
-    #  get 'gameUpdate2a'
-     # get 'gameUpdate2b'
-    #  get 'gameUpdate2bonus'
-    #  get 'gameUpdate3p'
-    #  get 'gameUpdate3b'
-    #  get 'gameUpdate3z'
-    #  get 'gameUpdate3v'
-    #  get 'gameUpdate3bonus'
-    #  get 'bonus2_result'
-    #  post 'bonus2_result'
-     # get 'gameUpdate4a'
-    #  get 'gameUpdate4b'
-    #  get 'gameUpdate4w'
-    #  get 'gameUpdate5h'
-     # get 'gameUpdate5i'
       get 'gameUpdateDone'
       get 'level_up'
       get 'bonus_result'
       post 'bonus_result'
-    #  get 'start100'
     end
   end
 
@@ -155,7 +89,42 @@ match 'play' => 'play#start'
             get 'admin'
         end
      end
-     
+  resources :user_sessions
+
+  resources :accounts do
+    collection do
+		get 'subscribe'
+		end
+	end
+		
+  resources :accounts do as_routes end
+
+  resources :users do as_routes end
+
+  resources :assessments do
+      member do
+                post 'new'
+       end
+   end
+
+  resources :bonus_rounds
+  
+  resources :traffics
+  
+  resources :users_admin
+  
+  resources :game_stat
+
+  resources :game_levels
+  
+  resources :invites
+  
+  resources :users do
+      
+      collection do
+          get 'new'
+      end
+  end     
      resources :myAccount
      resources :event_suggestions
      resources :admin do

@@ -1,0 +1,86 @@
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="rbroundbox2">  
+<div class="roundedcornr_box_652827">
+   <div class="roundedcornr_top_652827"><div></div></div>
+      <div class="roundedcornr_content_652827">
+
+<span class="welcome">My Account</span><div class="home"><%= link_to "Return to Game", :controller => 'play', :action => 'start' %></div>
+
+<% if logged_in? -%>
+    <%= "Logged in as <strong>#{current_user.login}</strong>" %> <span class="logout"><%= link_to "Logout", :controller => 'sessions', :action => 'destroy' %></span><br />
+
+       <% else -%>
+    <%= link_to "Login", :controller => 'account', :action => 'login' %>  <%= link_to "Signup", :controller => 'sessions', :action => 'signup' %>
+    <% end -%>
+      </div>
+   <div class="roundedcornr_bottom_652827"><div></div></div>
+</div>
+</div>
+  <div class="rbroundbox2">  
+<div class="roundedcornr_box_866195">
+   <div class="roundedcornr_top_652827"><div></div></div>
+      <div class="roundedcornr_content_652827">
+<h4>Get a little Extra</h4>
+<p>What? Little old Us? You like our game so much u want to share with the y'ngins?</p>
+<p>Awe, thats so sweet....And...<br />...You got it! </p>
+
+Of course, we want our piece of you, too. :-)  Tell us a little bit about yourself and the type of students you're working with. 
+<% form_for(@survey) do |f| %>
+  <%= f.error_messages %>
+
+
+  <p>Last name: &nbsp;&nbsp;&nbsp;&nbsp;    <%= f.text_field :lastname %>&nbsp;&nbsp;First name:     <%= f.text_field :firstname %>
+  </p>
+  <p>School System:     <%= f.text_field :school %>&nbsp;&nbsp;State:       <%= f.text_field :state %></p>
+  
+ What grades do you teach?<Table><tr><td width="140">
+  <p><%= f.check_box :grade6 %>6 </p>
+  <p><%= f.check_box :grade7 %>7 </p>
+  <p><%= f.check_box :grade8 %>8 </p></td><TD width="140">
+  <p><%= f.check_box :grade9 %>9 </p>
+  <p><%= f.check_box :grade10 %>10 </p>
+  <p><%= f.check_box :grade11 %>11 </p></td><TD>
+  <p><%= f.check_box :grade12 %>12 </p>
+  <p><%= f.check_box :university %>University </p>
+  <p><%= f.check_box :other %>Other </p></td></TR></table>
+  <p><b>Additional features</b><br />Would class management features be of interest to you?  Say, a display of which students had completed which levels?<br />
+
+    <p><%= f.radio_button :mgmt, "true" %>Yep! That would help a bunch, Ed. </p>
+<p> <%= f.radio_button :mgmt, "false" %>Nah, don't need it.</p>  </p>
+  <p>What else do you have to tell us?   
+      <%= f.label :comments %><br />
+    <%= f.text_area( :comments, :size => "50x10") %>
+  </p></p>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+<br />
+<div id="response"></div>
+<h4>Your invites</h4>
+
+<table width="50%">
+  <tr align="left" style="font-size: small">
+    <th>Sent</th>
+    <th>To</th>
+  </tr>
+
+<% @invites.each do |invite| %>
+  <tr style="font-size: small">
+    <td><%=h invite.created_at.strftime("%b %d, %Y") %></td>
+    <td><%=h invite.to %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to 'Back', invites_path %>
+      </div>
+   <div class="roundedcornr_bottom_652827"><div></div></div>
+</div>
+</div><!-- /rbroundbox -->
+
+  
+<%= link_to image_tag("whendidjidotcom_large.gif", :border=>0),  :controller => 'play', :action => 'start' %>

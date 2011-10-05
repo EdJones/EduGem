@@ -1,6 +1,6 @@
 <h1>Editing custom_event</h1>
 
-<% form_for(@custom_event) do |f| %>
+<%= form_for(@custom_event) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -13,11 +13,11 @@
   </p>
   <p>
     <%= f.label :title %><br />
-    <%= f.text_field (:title, :size => 80) %>
+    <%= f.text_field(:title, :size => 80) %>
   </p>
   <p>
     <%= f.label :pointValue %><br />
-    <%= f.text_field (:pointValue, :size => 10) %>
+    <%= f.text_field(:pointValue, :size => 10) %>
   </p>
   <p>
     <%= f.label :description %><br />
@@ -25,11 +25,11 @@
   </p>
   <p>
     <%= f.label :year %><br />
-    <%= f.text_field (:year, :size => 10) %>
+    <%= f.text_field(:year, :size => 10) %>
   </p>
   <p>
     <%= f.label :wikip_url %><br />
-    <%= f.text_field (:wikip_url, :size => 80) %>
+    <%= f.text_field(:wikip_url, :size => 80) %>
   </p>
   <p>
     <%= f.submit 'Update' %>

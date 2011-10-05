@@ -1,21 +1,29 @@
 require 'spec_helper'
 #require "selenium-webdriver"
+require 'pp'
 
 describe "Admin" do
-describe "when not logged in" do  
+context "when not logged in" do  
     it "Blocks unauthorized access" do
       visit assessments_path
 	  page.should have_content('You must first answer me these riddles three')
     end
   end
   
-describe "when logged in" do 
+context "when logged in, but not as admin" do  
+    it "Blocks unauthorized access" do
+      visit assessments_path
+	  page.should have_content('You must first answer me these riddles three')
+    end
+  end
+  
+context "when logged in as admin" do 
   before :each do
-    #User.make(:email => 'user@example.com', :password => 'caplin')
-	@account = Account.where(:username => 'ej0c').first
+	admin_account = Account.where(:id => 46).first
+	pp admin_account
 	visit login_path
-      fill_in 'Username or Email Address', :with => @account.email
-      fill_in 'Password', :with => 'emmitt'
+      fill_in 'Username or Email Address', :with => admin_account.email
+      fill_in 'Password', :with => 'secret'
 	  click_button('Log in')
   end
   

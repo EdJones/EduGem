@@ -10,14 +10,13 @@ describe "when not logged in" do
     end
   end
   
-describe "when logged in" do 
+context "when logged in" do 
 
   before :each do
-    #User.make(:email => 'user@example.com', :password => 'caplin')
-	@account = Account.where(:username => 'ej0c').first
+	@account = Account.where(:username => 'common_user').first
 	visit login_path
       fill_in 'Username or Email Address', :with => @account.email
-      fill_in 'Password', :with => 'emmitt'
+      fill_in 'Password', :with => 'secret'
 	  click_button('Log in')
   end
   
@@ -39,12 +38,35 @@ describe "when logged in" do
 	  page.should have_content('Assessment')
     end
 	
-	 it "Lets you create a new Assessment" do
+	 it "Lets you create a new Assessment", :js => true do
       visit assessments_path
 	  click_button('New Assessment')
+	  pending("Add selenium queries?")
 	  page.should have_content('Name')
 	  page.should have_content('Assessment type')
     end	
+	
+	it "Lets you select from four new Assessment types", :js => true do 
+      visit assessments_path
+	  click_button('New Assessment')
+	  fill_in 'Name', :with => 'TestAssessment'
+	  select('Fill-in', :from => 'assessment[assessment_type]')
+	  click_button('Create new assessment')
+	  page.should have_link('Add a question')
+	  page.should have_content('Fill-in')
+	  #page.should have_content('TestAssessment')
+    end	
+	
+	it "Lets you edit a multiple choice assessment" do
+	
+	pending("write test for multiple choice")
+	end
+	
+	it "Lets you edit a true false assessment" do
+	
+	pending("write test for true false")
+	end
+	
 	
 	 it "Lets you delete an Assessment", :js => true do
       visit assessments_path

@@ -18,11 +18,10 @@ end
 describe "when logged in" do 
 
   before :each do
-    #User.make(:email => 'user@example.com', :password => 'caplin')
-	@account = Account.where(:username => 'ej0c').first
+	account = Account.where(:username => 'admin_user').first
 	visit login_path
-      fill_in 'Username or Email Address', :with => @account.email
-      fill_in 'Password', :with => 'emmitt'
+      fill_in 'Username or Email Address', :with => account.email
+      fill_in 'Password', :with => 'secret'
 	  click_button('Log in')
   end
   
@@ -33,6 +32,7 @@ describe "when logged in" do
 
     it "Lets you modify a custom event" do
       visit custom_events_path
+	  pending("Fix error: Mysql2::Error: Unknown column 'position' in 'order clause': SELECT  `custom_events`.* FROM `custom_events` WHERE (my_digi_id IS NULL) ORDER BY position DESC LIMIT 1" )
 	  click_button('Modify Event')
 	  page.should have_content('Editing custom_event')
     end

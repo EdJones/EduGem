@@ -1,3 +1,7 @@
+require 'spec_helper'
+require 'pp'
+
+describe "user_sessions" do
 describe "the signup process" do
    
    it "signs me up" do
@@ -16,25 +20,23 @@ end
 
 describe "the sign in process", :type => :request do
   before :each do
-    #User.make(:email => 'user@example.com', :password => 'caplin')
-	@account = Account.where(:username => 'ej0c').first
 	visit login_path
   end
 
   it "signs me in" do
-      fill_in 'Username or Email Address', :with => @account.email
-      fill_in 'Password', :with => 'emmitt'
+      fill_in 'Username or Email Address', :with => "common_user"
+      fill_in 'Password', :with => 'secret'
 	  click_button('Log in')
 	  page.should have_content('Welcome back!')
   end
   
     it "logs me out" do
-      fill_in 'Username or Email Address', :with => @account.email
-      fill_in 'Password', :with => 'emmitt'
+      fill_in 'Username or Email Address', :with => "common_user"
+      fill_in 'Password', :with => 'secret'
 	  click_button('Log in')
 	  click_link('Logout')
 	  page.should have_content('Login')
   end
   
-
+ end
 end

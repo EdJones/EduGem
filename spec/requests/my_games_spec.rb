@@ -4,10 +4,10 @@ require "selenium-webdriver"
 describe "MyGames" do
   before :each do
     #User.make(:email => 'user@example.com', :password => 'caplin')
-	@account = Account.where(:username => 'ej0c').first
+	@account = Account.where(:username => 'common_user').first
 	visit login_path
       fill_in 'Username or Email Address', :with => @account.email
-      fill_in 'Password', :with => 'emmitt'
+      fill_in 'Password', :with => 'secret'
 	  click_button('Log in')
   end
   

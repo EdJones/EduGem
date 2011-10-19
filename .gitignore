@@ -2,3 +2,9 @@
 db/*.sqlite3
 log/*.log
 tmp/
+
+/log
+/z DB backups and devel docs
+/w.bat
+/ANSI32.dll
+/ansicon.exe

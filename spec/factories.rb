@@ -12,4 +12,7 @@ Factory.define :game_stat do |f|
   f.sequence(:high_score) { |n| "3333" }
 end  
 
-  
+Factory.define :my_game do |f|
+  f.sequence(:title) { |n| "#{n}th century" }
+  f.sequence(:author) { |n| "common_user" }
+end    

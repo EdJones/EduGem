@@ -1,7 +1,9 @@
 class AccountsController < ApplicationController
-  before_filter :login_required, :except => [:new, :create]
-  before_filter :authorized?, :except => [:new, :create, :edit, :update]
-  
+  #before_filter :login_required, :except => [:new, :create]
+  #before_filter :authorized?, :except => [:new, :create, :edit, :update]
+  authorize_resource # CanCan
+  skip_authorize_resource :only => :new
+	
 active_scaffold :account do |conf|
     conf.label = "Users for WhenDidIt?"
 	conf.columns = [:username, :email, :created_at, :admin, :teacher, :author]

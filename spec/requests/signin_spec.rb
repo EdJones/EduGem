@@ -3,7 +3,17 @@ require 'pp'
 
 describe "user_sessions" do
 describe "the signup process" do
-   
+ 
+context "when not logged in" do
+
+  describe "GET /accounts" do
+    it "Blocks unauthorized access" do
+      visit accounts_path
+	  page.should have_content('How many can you get?')
+    end
+  end
+end 
+  
    it "signs me up" do
      lambda do 
 	  visit signup_path

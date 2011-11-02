@@ -1,4 +1,7 @@
 class Account < ActiveRecord::Base
+
+# could this all be simplified with RAIL's 3.1's has_secure_password ?
+
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation
 

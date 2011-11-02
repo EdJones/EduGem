@@ -1,14 +1,18 @@
 require 'spec_helper'
 require 'pp'
 
+
 describe "Accounts" do
+
+context "When not logged in" do
+
   describe "GET /accounts" do
     it "Blocks unauthorized access" do
       visit accounts_path
-	  page.should have_content('You must first answer me these riddles three')
+	  page.should have_content('How many can you get?')
     end
   end
-  
+end  
   
 context "when logged in as regular user" do 
 	#let(:current_game) {Factory(:game_stat)}
@@ -23,21 +27,21 @@ context "when logged in as regular user" do
 	  click_button('Log in')
   end
 
-    it "redirects attempts to view accounts to unauthorized page" do
+    it "doesn't let you view accounts - redirects attempts to view accounts to home page" do
       visit accounts_path
 	  page.should_not have_content('Users for ')
-	  page.should have_content('Unauthorized')
+	  page.should have_content('How many can you get?')
     end  
 	
   
    it "doesn't let you edit other people's account" do
 	  visit edit_account_path( 1 )
    	  page.should_not have_content('Users for ')
-	  page.should have_content('Unauthorized')
+	  page.should have_content('How many can you get?')
    end
  end  
   
-  context "when logged in as admin" do 
+context "when logged in as admin" do 
 	#let(:current_game) {Factory(:game_stat)}
 
   before :each do

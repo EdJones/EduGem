@@ -4,15 +4,12 @@ require 'pp'
 
 describe "Accounts" do
 
-context "When not logged in" do
-
-  describe "GET /accounts" do
+  context "When not logged in" do
     it "Blocks unauthorized access" do
       visit accounts_path
 	  page.should have_content('How many can you get?')
     end
-  end
-end  
+  end  
   
 context "when logged in as regular user" do 
 	#let(:current_game) {Factory(:game_stat)}

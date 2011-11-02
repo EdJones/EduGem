@@ -5,9 +5,12 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.admin
       can :manage, :all
+	else if user.author
+	  can :manage, MyDidji, :author => true
+	  can :read, MyDidji, :public => true
     else
 	  can :create, Account
-      #can :read, :all
     end
   end
+end
 end

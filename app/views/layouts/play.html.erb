@@ -3,18 +3,24 @@
 <head>
   <title>A Game of Who Did What, When!</title>
 <!--  Whendidji.com - You're Brilliant!, so show it.  -->
-   <%= javascript_include_tag 'gameplay' %>
-   <%= javascript_include_tag :defaults %>
-        <%= javascript_include_tag 'sound' %>
+  <%= javascript_include_tag 'gameplay' %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'sound' %>
+  
+  <%= stylesheet_link_tag "errors" %>
   <%= stylesheet_link_tag 'ajaxy' %>
   <%= stylesheet_link_tag 'game' %>
+  
   <link rel="shortcut icon" href="/images/favicon.ico">
   <%= csrf_meta_tag %>
+  <%= yield(:head) %>
 
 
 </head>
 <body id="play">
-
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
 <!--
 <p style="color: green"><%= flash[:notice] %></p>
 -->

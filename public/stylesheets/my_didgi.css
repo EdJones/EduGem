@@ -1,0 +1,92 @@
+
+#lowerMast3 {
+margin-top: 10px;
+
+}
+.brand {
+width: 200 px;
+text-align: right;
+position:relative;
+right: 50px;
+}
+.brandimage {
+width: 200 px;
+position:relative;
+right: 50px;
+}
+#lowerMast2 {
+height:111px;
+margin-top:10px;
+}
+#add_didgis {
+	position: relative;
+	left: 350 px;
+}
+#instructions2 {
+	height: 100 px;
+	width: 300 px;
+	position: absolute;
+	right: 200 px;
+	top: 200px;
+	border: none;
+	border-width: thin;
+}
+#select_games {
+	display: hidden;
+}
+h2	{color: #808040;
+font-family:"Comic Sans MS";
+margin-bottom: 1em;
+}
+.guidance {
+	font-family: "Comic Sans MS";
+	font-size: larger;
+	 }
+.content3 {
+	text-align: left;
+	width: 804;
+}	 
+.content4 {
+	position:relative;
+	text-align: left;
+	width: 804;
+}
+.container {
+	text-align: center;
+}
+.main {
+	width: 804px;
+	
+}
+#instructions3 {
+  fon 	
+	}
+.advisory {
+	border-width: 1px;
+	border: solid;
+	border-color: gray;
+	padding: 4px;
+	}
+.advisory a {
+	color: blue;
+	}
+
+#custom_events  {
+	width: 300px;
+	padding-left: 100px;
+	}		
+#custom_events li {
+
+  cursor: move;
+
+
+
+	background-color: #EEF3FD;
+	border: 1px solid #A0B9FE;
+
+	list-style-image: none;
+	list-style-type: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	vertical-align: bottom;
+}

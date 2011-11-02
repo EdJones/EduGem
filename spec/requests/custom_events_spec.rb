@@ -10,8 +10,8 @@ describe "when not logged in" do
     end
   end
   
-describe "when properly logged in for tests " do  
-pending("fix the factories, and get ed's username out")
+describe "proper access and tests thereof" do  
+pending("make sure all resources are limited to their author or owner")
 end
 
 

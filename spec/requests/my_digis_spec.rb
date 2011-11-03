@@ -46,17 +46,14 @@ context "when logged in" do
     end	
 	
 	 it "Lets you make a didji public", :js => true do
-      visit my_digis_path
-		#a = find('tr', :text => '111')
-		#within a do 
-	  click_button('Make Public')
-	  #end
-	  #On confirmation, click ('OK')
-	  page.driver.browser.switch_to.alert.accept
-	  #within '#didji_list' do
-	  #  find('tr', :text => '111').should_not have_button('Make Public') 
-	  page.should_not have_button('Make Public')
-	  #end
-    end
+        lambda do 
+	    visit my_digis_path
+        click_button('Make Public')
+	    page.driver.browser.switch_to.alert.accept
+	    #within '#didji_list' do
+	    #  find('tr', :text => '111').should_not have_button('Make Public')
+	  end.should change(MyDigi.public_play, :count).by(1)
+  end
+
   end
 end

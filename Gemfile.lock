@@ -35,6 +35,7 @@ GEM
     acts_as_list (0.1.2)
     ansi (1.2.5)
     arel (2.0.10)
+    awesome_print (0.4.0)
     bcrypt-ruby (2.1.4-x86-mingw32)
     builder (2.1.2)
     cancan (1.6.7)
@@ -187,6 +188,7 @@ PLATFORMS
 DEPENDENCIES
   active_scaffold
   acts_as_list
+  awesome_print
   bcrypt-ruby (< 3.0.1)
   cancan
   capybara

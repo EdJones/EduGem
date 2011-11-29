@@ -28,6 +28,7 @@ gem "acts_as_list"
 gem 'active_scaffold'
 gem "simple_form"  
 gem 'cancan'
+gem 'awesome_print'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

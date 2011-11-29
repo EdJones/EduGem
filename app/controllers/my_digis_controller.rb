@@ -147,6 +147,7 @@ end
      def make_private
       @my_digi = MyDigi.find(params[:id])
       @my_digi.update_attribute('public', false)
+
           respond_to do |format|
       format.html { redirect_to(my_digis_url) }
       format.xml  { render :xml => @my_digis }
@@ -219,7 +220,7 @@ end
     respond_to do |format|
       if @my_digi.update_attributes(params[:my_digi])
         flash[:notice] = 'MyDigi was successfully updated.'
-        format.html { redirect_to(@my_digi) }
+        format.html { redirect_to(my_digis_path) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

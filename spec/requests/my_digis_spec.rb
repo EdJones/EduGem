@@ -31,7 +31,6 @@ context "when logged in" do
 
     it "Lets you modify didji list" do
 	@my_digi = Factory.create(:my_digi)
-	pp @my_digi
       visit my_digis_path
 	  click_button('Modify events')
 	  page.should have_content('Events for my_digi')
@@ -39,7 +38,6 @@ context "when logged in" do
 	
     it "Lets you preview a didji" do
 	@my_digi = Factory.create(:my_digi)
-		pp @my_digi
       visit my_digis_path
 	  click_button('Preview')
 	  page.should have_content('How many can you get?')
@@ -52,16 +50,20 @@ context "when logged in" do
     end	
 	
 	 it "Lets you make a didji public", :js => true do
-       #pp MyDigi.where(:author => 'testdude')
+       pp MyDigi.where(:author => 'testdude')
 		@my_digi = Factory.create(:my_digi)
-		#ap MyDigi.where(:author => 'testdude')
+		pp MyDigi.where(:author => 'testdude').all
+		lambda { 
 		visit my_digis_path
 		pending("the function seems to work. Why not the test?")
-		lambda { 
+
         click_button('Make Public')
 	    page.driver.browser.switch_to.alert.accept
-		#ap MyDigi.where(:author => 'testdude')
-		}.should change(MyDigi.where(:public => true), :count).by(1)
+		ap MyDigi.where(:author => 'testdude')
+		puts'snoggledorf \n'
+		ap MyDigi.where(:public => true)
+		
+		}.should change(MyDigi.where(:public => true).all, :count).by(1)
 	  
   end
 

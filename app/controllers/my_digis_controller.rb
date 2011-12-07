@@ -139,7 +139,7 @@ end
 	  @my_digi.update_attribute('public', true)
       @my_digi.update_attribute('public_play', true)
       respond_to do |format|
-      format.html { redirect_to(my_digis_url) }
+      format.html { redirect_to(my_digis_path) }
       format.xml  { render :xml => @my_digis }
 		end
     end

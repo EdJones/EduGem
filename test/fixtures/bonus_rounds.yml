@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  level: 
+  message1: 
+  message2: 
+  points: 
+  points_message: 
+  level_up_message: 
+  modifier: MyString
+
+two:
+  level: 
+  message1: 
+  message2: 
+  points: 
+  points_message: 
+  level_up_message: 
+  modifier: MyString

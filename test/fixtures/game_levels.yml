@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  game_id: 1
+  level: 1
+  sublevel: 1
+  start_idee: 1
+  end_idee: 1
+  tagline: MyString
+  custom_digi: 
+  my_digi_id: 1
+
+two:
+  game_id: 1
+  level: 1
+  sublevel: 1
+  start_idee: 1
+  end_idee: 1
+  tagline: MyString
+  custom_digi: 
+  my_digi_id: 1

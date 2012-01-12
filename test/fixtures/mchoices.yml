@@ -1,0 +1,29 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  prompt: MyString
+  answer1: MyString
+  answer2: MyString
+  anser3: MyString
+  answer4: MyString
+  hint: MyString
+  correct: 1
+  errormsg1: MyString
+  errormsg2: MyString
+  errormsg3: MyString
+  errormsg4: MyString
+  modifier: MyString
+
+two:
+  prompt: MyString
+  answer1: MyString
+  answer2: MyString
+  anser3: MyString
+  answer4: MyString
+  hint: MyString
+  correct: 1
+  errormsg1: MyString
+  errormsg2: MyString
+  errormsg3: MyString
+  errormsg4: MyString
+  modifier: MyString

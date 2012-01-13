@@ -32,7 +32,7 @@ What are some Interactive Learning Patterns?
 <li>Fill-in-the-blank</li>
 </ul>
 
-The [assessments](tree/master/app) model/views/controllers are the place to look for adding/improving these.
+The [assessments](EduGem/tree/master/app) model/views/controllers are the place to look for adding/improving these.
 
 
 <h3>No Flash?</h3>

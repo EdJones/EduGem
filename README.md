@@ -32,6 +32,8 @@ What are some Interactive Learning Patterns?
 <li>Fill-in-the-blank</li>
 </ul>
 
+The [assessments](app/) model/veiw/controllers are the place to look for adding/improving these.
+
 
 <h3>No Flash?</h3>
 "Wouldn't Flash/ActionScript be a jazzier way to do this?", our non-RAILS frinds might ask? Yes. Until you ramp it up and it gets expensive fast when you want to add coaching and gaming pieces. Still, good thinking, later we'll talk of <a href="http://projectsprouts.org/">Project Sprouts</a>.

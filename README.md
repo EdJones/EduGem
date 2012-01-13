@@ -39,3 +39,6 @@ The [assessments](EduGem/tree/master/app) model/views/controllers are the place 
 "Wouldn't Flash/ActionScript be a jazzier way to do this?", our non-RAILS frinds might ask? Yes. Until you ramp it up and it gets expensive fast when you want to add coaching and gaming pieces. Still, good thinking, later we'll talk of <a href="http://projectsprouts.org/">Project Sprouts</a>.
 Also, IOS doesn't support Flash, so our iPad friends are screwed.
 
+That doesn't mean Flash is out. In fact, you might help build in support. [Project Sprouts](http://projectsprouts.org/) offers some real possibilities. Also, many Flash learning interactives are in the wild; they might be integrated in as teaching media. Just think about fail-overs if you use them.
+
+<h3>Thanks!</h3>

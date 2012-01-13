@@ -1,0 +1,69 @@
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="rbroundbox2">  
+<div class="roundedcornr_box_652827">
+   <div class="roundedcornr_top_652827"><div></div></div>
+      <div class="roundedcornr_content_652827">
+
+<span class="welcome">My Account</span><div class="home"><%= link_to "Return to Game", :controller => 'play', :action => 'start' %></div>
+
+<% if logged_in? -%>
+    <%= "Logged in as <strong>#{current_user.login}</strong>" %> <span class="logout"><%= link_to "Logout", :controller => 'sessions', :action => 'destroy' %></span><br />
+
+       <% else -%>
+    <%= link_to "Login", :controller => 'account', :action => 'login' %>  <%= link_to "Signup", :controller => 'sessions', :action => 'signup' %>
+    <% end -%>
+      </div>
+   <div class="roundedcornr_bottom_652827"><div></div></div>
+</div>
+</div>
+  <div class="rbroundbox2">  
+<div class="roundedcornr_box_866195">
+   <div class="roundedcornr_top_652827"><div></div></div>
+      <div class="roundedcornr_content_652827">
+<h5>Get a little Extra</h5>
+<h4>Enroll Students</h4>
+<p>Thanks for giving us a bit of info! As we work the bugs, we're still limiting invitations, but you can enroll 25 students.</p>
+<p>We'd appreciate it if you let us know how they fare.</p>
+
+<% form_for(@invite) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :from %> <br /><b><%=current_user.email%></b>
+  </p>
+  <p> 
+    <%= f.label :to %><br />
+    <%= f.text_field :to %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+<br />
+<div id="response"></div>
+<h4>Your invites</h4>
+
+<table width="50%">
+  <tr align="left" style="font-size: small">
+    <th>Sent</th>
+    <th>To</th>
+  </tr>
+
+<% @invites.each do |invite| %>
+  <tr style="font-size: small">
+    <td><%=h invite.created_at.strftime("%b %d, %Y") %></td>
+    <td><%=h invite.to %></td>
+  </tr>
+<% end %>
+</table>
+<%= link_to 'Back', invites_path %>
+      </div>
+   <div class="roundedcornr_bottom_652827"><div></div></div>
+</div>
+</div><!-- /rbroundbox -->
+
+  
+<%= link_to image_tag("whendidjidotcom_large.gif", :border=>0),  :controller => 'play', :action => 'start' %>

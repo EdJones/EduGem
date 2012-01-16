@@ -100,7 +100,7 @@ if (dispCorrect  < last_correct) {totalPoints = totalPoints - eventPoints; Sound
 if (dispCorrect  > last_correct) {totalPoints = totalPoints + eventPoints; Sound.play("../sounds/4arrow.wav");m.innerHTML="&nbsp";m2.innerHTML=("Good! It was " + BCize (eventList[droppedEventId]["custom_event"].year));flashMe("Good! It was " + BCize (eventList[droppedEventId]["custom_event"].year));};
 if (dispCorrect  == last_correct) {totalPoints = totalPoints- (eventPoints /10); Sound.play("../sounds/8squish.wav");m.innerHTML="Nope!";m2.innerHTML=(" ");};
 if (dispCorrect == 10) {Sound.play("../sounds/bike.wav");m4.style.display="block";};
-if (dispCorrect == 1) {Sound.play("../sounds/winner.wav");m.innerHTML="Sweet!!";l.style.display="block";m4.style.display="none";};
+if (dispCorrect == 14) {Sound.play("../sounds/winner.wav");m.innerHTML="Sweet!!";l.style.display="block";m4.style.display="none";};
 accumPoints = totalPoints + lastPoints;
 p.innerHTML=accumPoints;
 last_correct=dispCorrect;

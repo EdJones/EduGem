@@ -89,8 +89,7 @@ Click on the "W" if you need help.</h4>
 <span class="style3">Drag Events from Here</span><br />
 <div id="levelUp" ><br />You got them All!! <%= link_to "Go to Level 2",  { :action => "level", :id => "67" }, :remote => true, :with => "'score=' + accumPoints" %> 
 </div>
-<%= @eventsSourceList.length %>
-<%= @eventsSourceList.length %>
+
 <% for event in @eventsSourceList %>
      <li class="green" id="firstlist_<%= event.idee %>"><%= event.title %><%= link_to "W", event.wikip_url, { :popup => ['Wikipedia', 'height=600,width=700'] } %>
 </li>
